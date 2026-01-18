@@ -46,10 +46,10 @@ function jump() {
     if (isJumping || !gameRunning) return;
 
     isJumping = true;
-    dino.style.bottom = '280px';
+    dino.style.bottom = '300px';
 
     setTimeout(() => {
-        dino.style.bottom = '150px';
+        dino.style.bottom = '170px';
         setTimeout(() => {
             isJumping = false;
         }, 200);
@@ -82,7 +82,8 @@ function createObstacle() {
     document.body.appendChild(obstacle);
 
     let obstaclePosition = window.innerWidth;
-    const currentSpeed = gameSpeed + Math.floor(score / 200);
+    let obstaclePosition = window.innerWidth + 60; // empieza fuera de pantalla
+    obstacle.style.left = obstaclePosition + "px";
 
     const moveObstacle = setInterval(() => {
         if (!gameRunning) {
@@ -92,9 +93,8 @@ function createObstacle() {
         }
 
         obstaclePosition -= currentSpeed;
-        obstacle.style.right = (window.innerWidth - obstaclePosition) + 'px';
+        obstacle.style.left = obstaclePosition + "px";
 
-        // Detectar colisión
         const dinoRect = dino.getBoundingClientRect();
         const obstacleRect = obstacle.getBoundingClientRect();
 
@@ -106,7 +106,7 @@ function createObstacle() {
             endGame();
         }
 
-        if (obstaclePosition < -50) {
+        if (obstaclePosition < -80) {
             clearInterval(moveObstacle);
             obstacle.remove();
         }
@@ -143,7 +143,7 @@ function restartGame() {
     score = 0;
     scoreElement.textContent = score;
     gameOverOverlay.style.display = 'none';
-    dino.style.bottom = '150px';
+    dino.style.bottom = '170px';
     startGame();
 }
 
