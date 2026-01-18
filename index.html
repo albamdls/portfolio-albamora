@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio en Construcción</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px 20px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            border-radius: 10px;
+            animation: loading 2s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes loading {
+            0% {
+                width: 0%;
+            }
+
+            50% {
+                width: 70%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        .game-info {
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.9s backwards;
+        }
+
+        .score-display {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 1.2s backwards;
+        }
+
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 5;
+            border-top: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dino {
+            position: absolute;
+            bottom: 150px;
+            left: 100px;
+            width: 50px;
+            height: 55px;
+            z-index: 20;
+            transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dino-body {
+            width: 30px;
+            height: 38px;
+            background: #ff6b6b;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .dino-head {
+            width: 28px;
+            height: 20px;
+            background: #ff6b6b;
+            position: absolute;
+            top: -15px;
+            left: 1px;
+            border-radius: 5px;
+        }
+
+        .dino-eye {
+            width: 5px;
+            height: 5px;
+            background: white;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border-radius: 50%;
+        }
+
+        .dino-mouth {
+            width: 8px;
+            height: 3px;
+            background: #333;
+            position: absolute;
+            bottom: 3px;
+            right: 2px;
+            border-radius: 2px;
+        }
+
+        .dino-legs {
+            position: absolute;
+            bottom: -12px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .dino-leg {
+            width: 7px;
+            height: 12px;
+            background: #ff6b6b;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .obstacle {
+            position: absolute;
+            bottom: 150px;
+            width: 25px;
+            height: 45px;
+            z-index: 15;
+        }
+
+        .cactus {
+            width: 100%;
+            height: 100%;
+            background: #2d5016;
+            position: relative;
+        }
+
+        .cactus-top {
+            width: 100%;
+            height: 12px;
+            background: #4a7c2c;
+            border-radius: 8px 8px 0 0;
+            position: absolute;
+            top: 0;
+        }
+
+        .cactus-arm {
+            width: 8px;
+            height: 15px;
+            background: #2d5016;
+            position: absolute;
+            top: 15px;
+        }
+
+        .cactus-arm-left {
+            left: -5px;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .cactus-arm-right {
+            right: -5px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+            animation: float 20s linear infinite;
+            z-index: 8;
+        }
+
+        @keyframes float {
+            0% {
+                left: -200px;
+            }
+
+            100% {
+                left: calc(100% + 200px);
+            }
+        }
+
+        .game-over-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .game-over-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .game-over-box h2 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .game-over-box p {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .loading-bar {
+                width: 200px;
+            }
+
+            .dino {
+                left: 50px;
+            }
+
+            .game-over-box {
+                padding: 30px 20px;
+                margin: 0 20px;
+            }
+
+            .game-over-box h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <h1>🚀 Portfolio en Construcción</h1>
+        <p class="subtitle">Algo increíble está por llegar...</p>
+
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+
+        <div class="game-info">
+            Presiona ESPACIO o CLICK para saltar 🎮
+        </div>
+
+        <div class="score-display">
+            Puntuación: <span id="score">0</span> | Mejor: <span id="highScore">0</span>
+        </div>
+    </div>
+
+    <div class="dino" id="dino">
+        <div class="dino-body">
+            <div class="dino-head">
+                <div class="dino-eye"></div>
+                <div class="dino-mouth"></div>
+            </div>
+            <div class="dino-legs">
+                <div class="dino-leg"></div>
+                <div class="dino-leg"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ground"></div>
+
+    <div class="game-over-overlay" id="gameOverOverlay">
+        <div class="game-over-box">
+            <h2>¡Game Over! 🎮</h2>
+            <p>Puntuación final: <strong><span id="finalScore">0</span></strong></p>
+            <button class="restart-btn" onclick="restartGame()">Jugar de nuevo</button>
+        </div>
+    </div>
+</body>
+
+</html>
