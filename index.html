@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0066cc 0%, #00d4aa 100%);
             min-height: 100vh;
             overflow: hidden;
             position: relative;
@@ -88,10 +88,10 @@
 
         .loading-progress {
             height: 100%;
-            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            background: linear-gradient(90deg, #00d4aa, #00ffcc);
             border-radius: 10px;
             animation: loading 2s ease-in-out infinite;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 15px rgba(0, 212, 170, 0.6);
         }
 
         @keyframes loading {
@@ -129,9 +129,9 @@
             bottom: 0;
             width: 100%;
             height: 150px;
-            background: rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to bottom, rgba(0, 102, 204, 0.3), rgba(0, 0, 0, 0.4));
             z-index: 5;
-            border-top: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid rgba(0, 212, 170, 0.5);
         }
 
         .dino {
@@ -147,7 +147,7 @@
         .dino-body {
             width: 30px;
             height: 38px;
-            background: #ff6b6b;
+            background: #000000;
             border-radius: 8px;
             position: relative;
         }
@@ -155,7 +155,7 @@
         .dino-head {
             width: 28px;
             height: 20px;
-            background: #ff6b6b;
+            background: #000000;
             position: absolute;
             top: -15px;
             left: 1px;
@@ -165,17 +165,18 @@
         .dino-eye {
             width: 5px;
             height: 5px;
-            background: white;
+            background: #00d4aa;
             position: absolute;
             top: 5px;
             right: 5px;
             border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0, 212, 170, 0.8);
         }
 
         .dino-mouth {
             width: 8px;
             height: 3px;
-            background: #333;
+            background: #00d4aa;
             position: absolute;
             bottom: 3px;
             right: 2px;
@@ -193,7 +194,7 @@
         .dino-leg {
             width: 7px;
             height: 12px;
-            background: #ff6b6b;
+            background: #000000;
             border-radius: 0 0 3px 3px;
         }
 
@@ -208,14 +209,14 @@
         .cactus {
             width: 100%;
             height: 100%;
-            background: #2d5016;
+            background: #1a5c4a;
             position: relative;
         }
 
         .cactus-top {
             width: 100%;
             height: 12px;
-            background: #4a7c2c;
+            background: #2d8a6e;
             border-radius: 8px 8px 0 0;
             position: absolute;
             top: 0;
@@ -224,7 +225,7 @@
         .cactus-arm {
             width: 8px;
             height: 15px;
-            background: #2d5016;
+            background: #1a5c4a;
             position: absolute;
             top: 15px;
         }
@@ -241,10 +242,11 @@
 
         .cloud {
             position: absolute;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
             border-radius: 100px;
             animation: float 20s linear infinite;
             z-index: 8;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
         @keyframes float {
@@ -263,7 +265,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.85);
             display: none;
             justify-content: center;
             align-items: center;
@@ -282,12 +284,13 @@
         }
 
         .game-over-box {
-            background: white;
+            background: linear-gradient(135deg, #0066cc 0%, #00d4aa 100%);
             padding: 40px;
             border-radius: 20px;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 212, 170, 0.5);
             animation: scaleIn 0.3s ease-out;
+            border: 3px solid rgba(255, 255, 255, 0.3);
         }
 
         @keyframes scaleIn {
@@ -303,32 +306,36 @@
         }
 
         .game-over-box h2 {
-            color: #333;
+            color: white;
             font-size: 2.5rem;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .game-over-box p {
-            color: #666;
+            color: white;
             font-size: 1.2rem;
             margin-bottom: 30px;
         }
 
         .restart-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: white;
+            color: #0066cc;
             border: none;
             padding: 15px 40px;
             font-size: 1.1rem;
+            font-weight: bold;
             border-radius: 10px;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 212, 170, 0.4);
         }
 
         .restart-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 8px 20px rgba(0, 212, 170, 0.6);
+            background: #00d4aa;
+            color: white;
         }
 
         @keyframes fadeInDown {
