@@ -63,7 +63,7 @@ function createObstacle() {
     obstacle.className = 'obstacle';
 
     const cactus = document.createElement('div');
-    cactus.className = 'cactus';
+    cactus.className = 'cactus cactus--tech';
 
     const cactusTop = document.createElement('div');
     cactusTop.className = 'cactus-top';

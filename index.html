@@ -7,6 +7,26 @@
     <title>Portfolio en Construcción</title>
     <script src="scripts.js" defer></script>
     <style>
+        :root {
+            --bg1: #050711;
+            --bg2: #0b1230;
+            --glass: rgba(255, 255, 255, .08);
+            --glass2: rgba(255, 255, 255, .12);
+            --stroke: rgba(255, 255, 255, .16);
+
+            --text: #eaf2ff;
+            --muted: rgba(234, 242, 255, .75);
+
+            --accent: #44d7ff;
+            /* cian */
+            --accent2: #6dff9a;
+            /* verde */
+            --warn: #ffd166;
+
+            --shadow: 0 18px 60px rgba(0, 0, 0, .45);
+            --glow: 0 0 24px rgba(68, 215, 255, .25), 0 0 42px rgba(109, 255, 154, .12);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,38 +34,69 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            background:
+                radial-gradient(900px 500px at 20% 20%, rgba(68, 215, 255, .18), transparent 60%),
+                radial-gradient(800px 450px at 80% 30%, rgba(109, 255, 154, .14), transparent 60%),
+                radial-gradient(700px 420px at 50% 90%, rgba(255, 209, 102, .10), transparent 60%),
+                linear-gradient(135deg, var(--bg1), var(--bg2));
             min-height: 100vh;
             overflow: hidden;
             position: relative;
+            color: var(--text);
+        }
+
+        /* “noise” sutil */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px);
+            background-size: 120px 120px;
+            opacity: .10;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        /* scanline suave */
+        body::after {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, .04), transparent 25%, rgba(255, 255, 255, .03));
+            opacity: .06;
+            pointer-events: none;
         }
 
         .stars {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             overflow: hidden;
+            pointer-events: none;
         }
 
         .star {
             position: absolute;
             width: 2px;
             height: 2px;
-            background: white;
+            background: rgba(234, 242, 255, .9);
             border-radius: 50%;
-            animation: twinkle 3s infinite;
+            filter: drop-shadow(0 0 6px rgba(68, 215, 255, .35));
+            animation: twinkle 3.2s infinite;
         }
 
         @keyframes twinkle {
 
             0%,
             100% {
-                opacity: 0.3;
+                opacity: .25;
+                transform: scale(.9);
             }
 
             50% {
                 opacity: 1;
+                transform: scale(1.15);
             }
         }
 
@@ -57,130 +108,197 @@
             align-items: center;
             justify-content: flex-start;
             min-height: 100vh;
-            padding: 40px 20px 20px;
+            padding: 48px 20px 20px;
+            gap: 14px;
+        }
+
+        /* Card “glass” */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 28px;
+            width: min(860px, calc(100% - 40px));
+            height: 260px;
+            background: linear-gradient(180deg, var(--glass2), rgba(255, 255, 255, .04));
+            border: 1px solid var(--stroke);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: -1;
         }
 
         h1 {
-            color: white;
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: clamp(2rem, 4vw, 3rem);
             text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            animation: fadeInDown 1s ease-out;
+            letter-spacing: .2px;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+            animation: fadeInDown 0.9s ease-out;
+            margin-top: 55px;
+        }
+
+        h1 span,
+        h1 {
+            filter: drop-shadow(0 0 22px rgba(68, 215, 255, .18));
         }
 
         .subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+            color: var(--muted);
+            font-size: 1.05rem;
             text-align: center;
-            animation: fadeInUp 1s ease-out 0.3s backwards;
+            animation: fadeInUp 0.9s ease-out .2s backwards;
+        }
+
+        /* “badge” para instrucciones */
+        .game-info {
+            margin-top: 6px;
+            color: rgba(234, 242, 255, .85);
+            font-size: .98rem;
+            text-align: center;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.9s ease-out .35s backwards;
+        }
+
+        .score-display {
+            margin-top: 4px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInUp 0.9s ease-out .5s backwards;
+        }
+
+        #score,
+        #highScore {
+            display: inline-block;
+            min-width: 44px;
+            text-align: center;
+            padding: 6px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, .14);
+            background: rgba(255, 255, 255, .06);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .18);
+            color: var(--text);
         }
 
         .loading-bar {
-            width: 300px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
+            width: min(360px, 82vw);
+            height: 10px;
+            background: rgba(255, 255, 255, .10);
+            border: 1px solid rgba(255, 255, 255, .10);
+            border-radius: 999px;
             overflow: hidden;
-            margin-bottom: 3rem;
-            animation: fadeInUp 1s ease-out 0.6s backwards;
+            margin-top: 8px;
+            animation: fadeInUp 0.9s ease-out .3s backwards;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, .25);
+            backdrop-filter: blur(10px);
         }
 
         .loading-progress {
             height: 100%;
-            background: linear-gradient(90deg, #ffd700, #ffed4e);
-            border-radius: 10px;
-            animation: loading 2s ease-in-out infinite;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--warn));
+            border-radius: 999px;
+            animation: loading 2.4s ease-in-out infinite;
+            box-shadow: 0 0 18px rgba(68, 215, 255, .25), 0 0 26px rgba(109, 255, 154, .16);
+            filter: saturate(1.15);
         }
 
         @keyframes loading {
             0% {
                 width: 0%;
+                transform: translateX(-8%);
             }
 
-            50% {
-                width: 70%;
+            55% {
+                width: 72%;
             }
 
             100% {
                 width: 100%;
+                transform: translateX(0%);
             }
         }
 
-        .game-info {
-            color: white;
-            font-size: 1rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease-out 0.9s backwards;
-        }
-
-        .score-display {
-            color: white;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out 1.2s backwards;
-        }
-
+        /* Ground estilo “grid” */
         .ground {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 150px;
-            background: rgba(0, 0, 0, 0.2);
+            height: 170px;
             z-index: 5;
-            border-top: 3px solid rgba(255, 255, 255, 0.3);
+            background:
+                linear-gradient(to top, rgba(0, 0, 0, .35), rgba(0, 0, 0, .10)),
+                repeating-linear-gradient(90deg,
+                    rgba(255, 255, 255, .10) 0px,
+                    rgba(255, 255, 255, .10) 1px,
+                    transparent 1px,
+                    transparent 54px);
+            border-top: 1px solid rgba(255, 255, 255, .18);
+            box-shadow: 0 -30px 80px rgba(0, 0, 0, .35);
         }
 
         .dino {
             position: absolute;
-            bottom: 150px;
-            left: 100px;
-            width: 50px;
-            height: 55px;
+            bottom: 170px;
+            left: 110px;
+            width: 54px;
+            height: 60px;
             z-index: 20;
-            transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: bottom 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35));
         }
 
+        /* Dino “neon capsule” */
         .dino-body {
-            width: 30px;
-            height: 38px;
-            background: #ff6b6b;
-            border-radius: 8px;
+            width: 34px;
+            height: 42px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .18), rgba(255, 255, 255, .06));
+            border: 1px solid rgba(255, 255, 255, .14);
+            border-radius: 12px;
             position: relative;
+            box-shadow: var(--glow);
+            backdrop-filter: blur(8px);
         }
 
         .dino-head {
-            width: 28px;
-            height: 20px;
-            background: #ff6b6b;
+            width: 30px;
+            height: 22px;
             position: absolute;
-            top: -15px;
-            left: 1px;
-            border-radius: 5px;
+            top: -16px;
+            left: 2px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(68, 215, 255, .28), rgba(255, 255, 255, .08));
+            border: 1px solid rgba(255, 255, 255, .16);
+            box-shadow: 0 0 18px rgba(68, 215, 255, .22);
         }
 
         .dino-eye {
-            width: 5px;
-            height: 5px;
-            background: white;
+            width: 6px;
+            height: 6px;
+            background: rgba(234, 242, 255, .95);
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 6px;
+            right: 6px;
             border-radius: 50%;
+            box-shadow: 0 0 10px rgba(68, 215, 255, .35);
         }
 
         .dino-mouth {
-            width: 8px;
+            width: 10px;
             height: 3px;
-            background: #333;
+            background: rgba(234, 242, 255, .75);
             position: absolute;
-            bottom: 3px;
-            right: 2px;
-            border-radius: 2px;
+            bottom: 4px;
+            right: 4px;
+            border-radius: 999px;
+            opacity: .85;
         }
 
         .dino-legs {
@@ -189,198 +307,240 @@
             width: 100%;
             display: flex;
             justify-content: space-around;
+            opacity: .95;
         }
 
         .dino-leg {
-            width: 7px;
+            width: 8px;
             height: 12px;
-            background: #ff6b6b;
-            border-radius: 0 0 3px 3px;
+            border-radius: 0 0 6px 6px;
+            background: linear-gradient(180deg, rgba(109, 255, 154, .28), rgba(255, 255, 255, .06));
+            border: 1px solid rgba(255, 255, 255, .14);
+            box-shadow: 0 0 16px rgba(109, 255, 154, .14);
         }
 
+        /* Obstáculo más “chip” */
         .obstacle {
             position: absolute;
-            bottom: 150px;
-            width: 25px;
-            height: 45px;
+            bottom: 170px;
+            width: 26px;
+            height: 50px;
             z-index: 15;
+            filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35));
         }
 
         .cactus {
             width: 100%;
             height: 100%;
-            background: #2d5016;
+            border-radius: 10px;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .04));
+            border: 1px solid rgba(255, 255, 255, .16);
             position: relative;
+            box-shadow: 0 0 22px rgba(68, 215, 255, .12);
+            overflow: hidden;
+        }
+
+        .cactus::after {
+            content: "";
+            position: absolute;
+            inset: -30%;
+            background: radial-gradient(circle at 30% 30%, rgba(68, 215, 255, .18), transparent 45%);
+            transform: rotate(18deg);
+            opacity: .9;
         }
 
         .cactus-top {
             width: 100%;
-            height: 12px;
-            background: #4a7c2c;
-            border-radius: 8px 8px 0 0;
+            height: 10px;
+            border-radius: 10px 10px 0 0;
+            background: linear-gradient(90deg, rgba(68, 215, 255, .45), rgba(109, 255, 154, .25));
             position: absolute;
             top: 0;
+            left: 0;
+            opacity: .95;
         }
 
         .cactus-arm {
             width: 8px;
-            height: 15px;
-            background: #2d5016;
+            height: 16px;
             position: absolute;
             top: 15px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .14);
+            border-radius: 8px;
+            box-shadow: 0 0 14px rgba(109, 255, 154, .10);
         }
 
         .cactus-arm-left {
-            left: -5px;
-            border-radius: 5px 0 0 5px;
+            left: -6px;
         }
 
         .cactus-arm-right {
-            right: -5px;
-            border-radius: 0 5px 5px 0;
+            right: -6px;
         }
 
         .cloud {
             position: absolute;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 100px;
-            animation: float 20s linear infinite;
+            border-radius: 999px;
             z-index: 8;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .10);
+            box-shadow: 0 18px 60px rgba(0, 0, 0, .25);
+            backdrop-filter: blur(10px);
+            animation: float 22s linear infinite;
         }
 
         @keyframes float {
             0% {
-                left: -200px;
+                left: -260px;
+                transform: translateY(0);
             }
 
             100% {
-                left: calc(100% + 200px);
+                left: calc(100% + 260px);
+                transform: translateY(-6px);
             }
         }
 
         .game-over-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            inset: 0;
+            background: rgba(0, 0, 0, .72);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            animation: fadeIn .25s ease-out;
         }
 
         .game-over-box {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
+            width: min(460px, calc(100% - 40px));
+            padding: 34px 26px;
+            border-radius: 22px;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: scaleIn 0.3s ease-out;
-        }
-
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            background: linear-gradient(180deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .06));
+            border: 1px solid rgba(255, 255, 255, .16);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            animation: scaleIn .25s ease-out;
+            color: var(--text);
         }
 
         .game-over-box h2 {
-            color: #333;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2.1rem;
+            margin-bottom: 14px;
+            letter-spacing: .2px;
+            text-shadow: 0 12px 30px rgba(0, 0, 0, .35);
         }
 
         .game-over-box p {
-            color: #666;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin-bottom: 22px;
         }
 
         .restart-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #031019;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            border-radius: 10px;
+            padding: 14px 34px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            border-radius: 14px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+            box-shadow: 0 10px 30px rgba(68, 215, 255, .18), 0 10px 30px rgba(109, 255, 154, .14);
+            filter: saturate(1.1);
         }
 
         .restart-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 14px 42px rgba(68, 215, 255, .26), 0 14px 42px rgba(109, 255, 154, .18);
+            filter: saturate(1.2);
+        }
+
+        .restart-btn:active {
+            transform: translateY(0px) scale(.99);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(.92);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
         }
 
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-22px)
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0)
             }
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(18px)
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0)
             }
         }
 
         @media (max-width: 600px) {
-            h1 {
-                font-size: 2rem;
+            .container {
+                padding-top: 42px;
             }
 
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            .loading-bar {
-                width: 200px;
+            .container::before {
+                height: 285px;
             }
 
             .dino {
-                left: 50px;
+                left: 54px;
             }
 
-            .game-over-box {
-                padding: 30px 20px;
-                margin: 0 20px;
+            .ground {
+                height: 175px;
             }
 
-            .game-over-box h2 {
-                font-size: 2rem;
+            .dino {
+                bottom: 175px;
             }
+
+            .obstacle {
+                bottom: 175px;
+            }
+        }
+
+        .cactus--tech {
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .04)),
+                repeating-linear-gradient(90deg, rgba(68, 215, 255, .16) 0px, rgba(68, 215, 255, .16) 1px, transparent 1px, transparent 10px);
         }
     </style>
 </head>
