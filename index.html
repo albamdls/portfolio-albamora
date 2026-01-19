@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio en Construcción</title>
-    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
     <style>
         * {
             margin: 0;
@@ -272,78 +271,132 @@
             position: absolute;
             bottom: 200px;
             left: 100px;
-            width: 50px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             z-index: 20;
             transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+            filter: drop-shadow(0 4px 15px rgba(168, 85, 247, 0.6));
         }
 
         .dino-body {
-            width: 30px;
-            height: 38px;
-            background: #000000;
-            border-radius: 8px;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #1e1e1e 0%, #000000 100%);
+            border-radius: 50% 50% 45% 45%;
             position: relative;
+            border: 2px solid #a855f7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5), inset 0 2px 10px rgba(168, 85, 247, 0.2);
+            animation: bodyPulse 2s ease-in-out infinite;
         }
 
-        .dino-head {
-            width: 28px;
-            height: 20px;
-            background: #000000;
-            position: absolute;
-            top: -15px;
-            left: 1px;
-            border-radius: 5px;
-        }
-
-        .dino-eye {
-            width: 5px;
-            height: 5px;
-            background: #a855f7;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            border-radius: 50%;
-            box-shadow: 0 0 8px rgba(168, 85, 247, 1);
-            animation: eyeGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes eyeGlow {
+        @keyframes bodyPulse {
 
             0%,
             100% {
-                box-shadow: 0 0 8px rgba(168, 85, 247, 1);
+                box-shadow: 0 0 20px rgba(168, 85, 247, 0.5), inset 0 2px 10px rgba(168, 85, 247, 0.2);
             }
 
             50% {
-                box-shadow: 0 0 15px rgba(168, 85, 247, 1);
+                box-shadow: 0 0 30px rgba(168, 85, 247, 0.8), inset 0 2px 15px rgba(168, 85, 247, 0.4);
+            }
+        }
+
+        .dino-head {
+            display: none;
+        }
+
+        .dino-eye {
+            width: 8px;
+            height: 8px;
+            background: #a855f7;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 1), 0 0 30px rgba(168, 85, 247, 0.6);
+            animation: eyeGlowStrong 1.5s ease-in-out infinite;
+        }
+
+        .dino-eye::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            animation: eyeSparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes eyeGlowStrong {
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(168, 85, 247, 1), 0 0 30px rgba(168, 85, 247, 0.6);
+                transform: scale(1);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(168, 85, 247, 1), 0 0 50px rgba(168, 85, 247, 0.8);
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes eyeSparkle {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
             }
         }
 
         .dino-mouth {
-            width: 8px;
-            height: 3px;
-            background: #a855f7;
-            position: absolute;
-            bottom: 3px;
-            right: 2px;
-            border-radius: 2px;
+            display: none;
         }
 
         .dino-legs {
             position: absolute;
-            bottom: -12px;
+            bottom: -8px;
             width: 100%;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            gap: 10px;
         }
 
         .dino-leg {
-            width: 7px;
-            height: 12px;
-            background: #000000;
-            border-radius: 0 0 3px 3px;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+            animation: legFloat 1s ease-in-out infinite;
+        }
+
+        .dino-leg:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .dino-leg:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes legFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-5px) scale(1.2);
+                opacity: 0.7;
+            }
         }
 
         .obstacle {
