@@ -1,6 +1,5 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import { BrowserRouter } from "react-router-dom"
 
 import "./index.css"
 
@@ -8,15 +7,16 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import AppRoutes from "@/routes/AppRoutes"
+import { HashRouter } from "react-router-dom"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <TooltipProvider>
           <AppRoutes />
         </TooltipProvider>
       </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   </StrictMode>
 )
