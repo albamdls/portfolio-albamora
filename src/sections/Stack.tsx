@@ -1,9 +1,20 @@
 import { useMemo } from "react"
 import { stack } from "../data/stack"
 import Section from "@/components/layout/Section"
+import { AuroraText } from "@/components/ui/aurora-text"
+
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+import Marquee from "@/components/ui/marquee" // <-- ajusta si tu ruta es distinta
 
 type StackItem = (typeof stack)[number] & {
-    level?: number
+    experienceYears?: number
+    since?: string
 }
 
 type CategoryKey =
@@ -136,210 +147,217 @@ const categoryIcons: Record<CategoryKey, React.ReactNode> = {
     ),
 }
 
-const categoryBadgeClasses: Record<CategoryKey, string> = {
-    Frontend: "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
-    Backend:
-        "bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400",
-    Database:
-        "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400",
-    Tools:
-        "bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400",
-    DevOps: "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400",
-    Testing: "bg-pink-100 text-pink-600 dark:bg-pink-900/30 dark:text-pink-400",
-    Design:
-        "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400",
-}
-
-const categoryHoverBarClasses: Record<CategoryKey, string> = {
-    Frontend: "from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-300",
-    Backend:
-        "from-purple-600 to-purple-400 dark:from-purple-400 dark:to-purple-300",
-    Database: "from-green-600 to-green-400 dark:from-green-400 dark:to-green-300",
-    Tools:
-        "from-orange-600 to-orange-400 dark:from-orange-400 dark:to-orange-300",
-    DevOps: "from-red-600 to-red-400 dark:from-red-400 dark:to-red-300",
-    Testing: "from-pink-600 to-pink-400 dark:from-pink-400 dark:to-pink-300",
-    Design:
-        "from-indigo-600 to-indigo-400 dark:from-indigo-400 dark:to-indigo-300",
-}
+const categoryOrder: CategoryKey[] = [
+    "Frontend",
+    "Backend",
+    "Database",
+    "DevOps",
+    "Tools",
+    "Testing",
+    "Design",
+]
 
 function isCategoryKey(value: string): value is CategoryKey {
+    return categoryOrder.includes(value as CategoryKey)
+}
+
+function monthsBetween(from: Date, to: Date) {
+    const years = to.getFullYear() - from.getFullYear()
+    const months = to.getMonth() - from.getMonth()
+    return years * 12 + months
+}
+
+function formatExperience(item: StackItem): string {
+    if (typeof item.experienceYears === "number") {
+        if (item.experienceYears < 1) return "< 1 año"
+        return item.experienceYears === 1 ? "1 año" : `${item.experienceYears} años`
+    }
+    if (item.since) {
+        const parsed =
+            item.since.length === 7 ? new Date(`${item.since}-01`) : new Date(item.since)
+        if (!Number.isNaN(parsed.getTime())) {
+            const now = new Date()
+            const m = Math.max(0, monthsBetween(parsed, now))
+            const y = Math.floor(m / 12)
+            const rem = m % 12
+
+            if (y <= 0) return rem <= 1 ? "1 mes" : `${rem} meses`
+            if (rem === 0) return y === 1 ? "1 año" : `${y} años`
+            return `${y}a ${rem}m`
+        }
+    }
+    return "N/A"
+}
+
+function TechRow({ items }: { items: StackItem[] }) {
+    const shouldMarquee = items.length > 5
+
+    if (!shouldMarquee) {
+        return (
+            <div className="flex flex-wrap gap-3">
+                {items.map((item) => (
+                    <TechPill key={`${item.category}-${item.name}`} item={item} />
+                ))}
+            </div>
+        )
+    }
+
     return (
-        value === "Frontend" ||
-        value === "Backend" ||
-        value === "Database" ||
-        value === "Tools" ||
-        value === "DevOps" ||
-        value === "Testing" ||
-        value === "Design"
+        <div className="relative w-full min-w-0 overflow-hidden rounded-2xl">
+            {/* fade edges */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white/70 to-transparent dark:from-slate-950/70 z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white/70 to-transparent dark:from-slate-950/70 z-10" />
+
+            <Marquee pauseOnHover className="[--duration:20s]">
+                {items.map((item) => (
+                    <div key={`m-${item.category}-${item.name}`} className="mx-2 shrink-0">
+                        <TechPill item={item} />
+                    </div>
+                ))}
+            </Marquee>
+        </div>
+    )
+}
+
+function TechPill({ item }: { item: StackItem }) {
+    const exp = formatExperience(item)
+
+    return (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <button
+                    type="button"
+                    className="
+            inline-flex items-center gap-2 rounded-full
+            border border-slate-200/80 bg-white/70
+            px-4 py-2 text-sm font-medium text-slate-700
+            shadow-sm backdrop-blur transition
+            hover:-translate-y-0.5 hover:shadow-md
+            dark:border-white/10 dark:bg-slate-900/20 dark:text-slate-200
+          "
+                >
+                    <img
+                        src={item.iconUrl}
+                        alt={item.name}
+                        className="h-5 w-5 object-contain"
+                        loading="lazy"
+                    />
+                    <span>{item.name}</span>
+                </button>
+            </TooltipTrigger>
+
+            <TooltipContent
+                side="top"
+                className="border-slate-200 bg-white text-slate-900 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100"
+            >
+                <div className="text-xs">
+                    <span className="font-semibold">{item.name}</span>
+                    <span className="mx-2 opacity-50">•</span>
+                    <span>{exp} de experiencia</span>
+                </div>
+            </TooltipContent>
+        </Tooltip>
+    )
+}
+
+/** Card “rectángulo redondeado” SIN relleno (solo borde) */
+function RoundedRowFrame({
+    children,
+}: {
+    children: React.ReactNode
+}) {
+    return (
+        <div
+            className="
+rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-md transition-all hover:bg-white/10      "
+        >
+            <div className="px-6 py-5">{children}</div>
+        </div>
     )
 }
 
 export default function Stack() {
     const grouped = useMemo(() => {
-        return stack.reduce<Record<string, StackItem[]>>((acc, item) => {
+        const g = stack.reduce<Record<string, StackItem[]>>((acc, item) => {
             const key = item.category
             if (!acc[key]) acc[key] = []
             acc[key].push(item)
             return acc
         }, {})
+
+        Object.keys(g).forEach((k) => g[k].sort((a, b) => a.name.localeCompare(b.name)))
+        return g
     }, [])
 
-    const totalYears = new Date().getFullYear() - 2021
+    const orderedCategories = [
+        ...categoryOrder.filter((c) => grouped[c]?.length),
+        ...Object.keys(grouped).filter((c) => !isCategoryKey(c)),
+    ]
 
     return (
-        <Section
-            id="stack"
-            title="Stack tecnológico"
-            subtitle="Tecnologías con las que he trabajado en proyectos reales"
-        >
-            <div className="mt-12 space-y-8">
-                {Object.entries(grouped).map(([category, items]) => {
-                    const catKey: CategoryKey | null = isCategoryKey(category)
-                        ? category
-                        : null
-
-                    const icon = catKey ? categoryIcons[catKey] : null
-                    const badgeClass = catKey
-                        ? categoryBadgeClasses[catKey]
-                        : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
-                    const hoverBar = catKey
-                        ? categoryHoverBarClasses[catKey]
-                        : "from-slate-600 to-slate-400 dark:from-slate-400 dark:to-slate-300"
-
-                    return (
-                        <div
-                            key={category}
-                            className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-900 dark:hover:shadow-slate-900/50"
-                        >
-                            {/* Header de categoría */}
-                            <div className="flex items-center gap-3 border-b border-slate-200 bg-slate-50 px-6 py-4 dark:border-slate-800 dark:bg-slate-900/50">
-                                <div
-                                    className={`flex h-10 w-10 items-center justify-center rounded-lg ${badgeClass}`}
-                                >
-                                    {icon}
-                                </div>
-
-                                <div className="flex-1">
-                                    <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                                        {category}
-                                    </h3>
-                                    <p className="text-sm text-slate-500 dark:text-slate-400">
-                                        {items.length}{" "}
-                                        {items.length === 1 ? "tecnología" : "tecnologías"}
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Grid de tecnologías */}
-                            <div className="grid grid-cols-2 gap-4 p-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                                {items.map((item) => (
-                                    <div
-                                        key={`${item.category}-${item.name}`}
-                                        className="group/item relative flex flex-col items-center gap-3 rounded-xl border border-transparent bg-slate-50 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-slate-200 hover:bg-white hover:shadow-lg dark:bg-slate-800/50 dark:hover:border-slate-700 dark:hover:bg-slate-800"
-                                    >
-                                        {/* Icono de la tecnología */}
-                                        <div className="relative">
-                                            <div className="absolute -inset-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 blur transition-opacity duration-300 group-hover/item:opacity-20 dark:from-blue-400 dark:to-purple-400" />
-                                            <img
-                                                src={item.iconUrl}
-                                                alt={item.name}
-                                                className="relative h-14 w-14 object-contain transition-transform duration-300 group-hover/item:scale-110"
-                                                loading="lazy"
-                                            />
-                                        </div>
-
-                                        {/* Nombre de la tecnología */}
-                                        <p className="text-center text-sm font-semibold text-slate-700 dark:text-slate-300">
-                                            {item.name}
-                                        </p>
-
-                                        {/* Nivel de experiencia */}
-                                        {item.level ? (
-                                            <div className="absolute right-2 top-2">
-                                                <div className="flex gap-0.5">
-                                                    {[1, 2, 3].map((star) => (
-                                                        <svg
-                                                            key={star}
-                                                            className={`h-3 w-3 ${star <= (item.level ?? 0)
-                                                                    ? "text-yellow-400"
-                                                                    : "text-slate-300 dark:text-slate-600"
-                                                                }`}
-                                                            fill="currentColor"
-                                                            viewBox="0 0 20 20"
-                                                            aria-hidden="true"
-                                                        >
-                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                        </svg>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Indicador de hover */}
-                            <div
-                                className={`absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r ${hoverBar} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
-                            />
-                        </div>
-                    )
-                })}
-            </div>
-
-            {/* Estadísticas totales */}
-            <div className="mt-12 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-8 dark:border-slate-800 dark:bg-slate-900/50">
-                <div className="grid gap-6 sm:grid-cols-3">
-                    <div className="text-center">
-                        <div className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                            {stack.length}
-                        </div>
-                        <div className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                            Tecnologías en total
-                        </div>
-                    </div>
-
-                    <div className="text-center">
-                        <div className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                            {Object.keys(grouped).length}
-                        </div>
-                        <div className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                            Categorías
-                        </div>
-                    </div>
-
-                    <div className="text-center">
-                        <div className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                            {totalYears}+
-                        </div>
-                        <div className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                            Años de experiencia
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Nota adicional */}
-            <div className="mt-8 flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
-                <svg
-                    className="mt-0.5 h-5 w-5 shrink-0 text-blue-600 dark:text-blue-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                </svg>
-                <p className="text-sm text-blue-900 dark:text-blue-300">
-                    Siempre estoy aprendiendo nuevas tecnologías y mejorando mis
-                    habilidades. Este stack se actualiza constantemente.
+        <Section id="stack" title="" subtitle="">
+            {/* Header centrado */}
+            <div className="mx-auto max-w-6xl text-center">
+                <p className="text-xs font-semibold tracking-[0.25em] text-slate-500 dark:text-slate-400">
+                    MY SKILLSET
                 </p>
+
+                <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+                    <span className="text-slate-900 dark:text-white">The Magic </span>
+                    <AuroraText className="inline-block">Behind</AuroraText>
+                </h2>
+
+                <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600 dark:text-slate-400">
+                    Pasa el cursor por encima para ver mi experiencia con cada tecnología.
+                </p>
+            </div>
+
+            {/* Filas por categoría */}
+            <div className="mx-auto mt-10 max-w-6xl space-y-5">
+                <TooltipProvider>
+                    {orderedCategories.map((category) => {
+                        const items = grouped[category] ?? []
+                        if (!items.length) return null
+
+                        const icon =
+                            isCategoryKey(category) ? categoryIcons[category] : null
+
+                        return (
+                            <RoundedRowFrame key={category}>
+                                <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-2">
+                                    {/* Left: categoría + icon */}
+                                    <div className="flex shrink-0 items-start gap-3 md:w-56">
+                                        {icon && (
+                                            <div
+                                                className="
+                                                    mt-0.5 flex h-10 w-10 items-center justify-center
+                                                    rounded-2xl border border-slate-200/70
+                                                    text-slate-700
+                                                    dark:border-white/10 dark:text-slate-200
+                                                "
+                                            >
+                                                {icon}
+                                            </div>
+                                        )}
+
+                                        <div className="text-left">
+                                            <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                                                {category}
+                                            </p>
+                                            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                                                {items.length}{" "}
+                                                {items.length === 1 ? "tecnología" : "tecnologías"}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Right: tech pills */}
+                                    <TechRow items={items} />
+                                </div>
+                            </RoundedRowFrame>
+                        )
+                    })}
+                </TooltipProvider>
             </div>
         </Section>
     )

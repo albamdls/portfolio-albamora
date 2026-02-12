@@ -9,27 +9,29 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
     {
-        title: "Software Engineer",
-        company: "Tech Company A",
-        startDate: "Jan 2020",
+        title: "Estudiante en prácticas | Software Developer",
+        company: "Siemens EDA (Siemens Digital Industries Software)",
+        startDate: "Sep 2025",
         endDate: "Present",
         description: [
-            "Developed and maintained web applications using React and Node.js.",
-            "Collaborated with cross-functional teams to design and implement new features.",
-            "Optimized application performance, resulting in a 20% reduction in load times."
+            "Desarrollo de software en un entorno profesional dentro del área de Siemens EDA.",
+            "Participación en tareas de desarrollo y mantenimiento de aplicaciones.",
+            "Colaboración con el equipo técnico siguiendo metodologías y buenas prácticas de ingeniería de software.",
+            "Trabajo presencial en un entorno corporativo internacional."
         ],
-        skills: ["React", "Node.js", "JavaScript", "TypeScript", "Git"]
+        skills: ["Desarrollo de software", "Trabajo en equipo", "Buenas prácticas", "Inglés"]
     },
     {
-        title: "Frontend Developer",
-        company: "Tech Company B",
-        startDate: "Jun 2018",
-        endDate: "Dec 2019",
+        title: "Estudiante en prácticas | Software Developer",
+        company: "Siemens Digital Industries Software",
+        startDate: "Mar 2025",
+        endDate: "Jun 2025",
         description: [
-            "Implemented responsive UI components using React and Redux.",
-            "Worked closely with designers to ensure a seamless user experience.",
-            "Participated in code reviews and contributed to improving code quality."
+            "Apoyo en tareas de desarrollo de software con enfoque en front-end.",
+            "Diseño e implementación de componentes de interfaz de usuario.",
+            "Colaboración en un entorno híbrido con equipos multidisciplinares.",
+            "Introducción al trabajo en proyectos reales dentro de un entorno empresarial."
         ],
-        skills: ["React", "Redux", "JavaScript", "CSS", "HTML"]
-    },
+        skills: ["Front-end", "Desarrollo de software", "UI", "Trabajo en equipo"]
+    }
 ]

@@ -71,14 +71,6 @@ export default function NavbarDock() {
 
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        {/* 
-                          Para el botón del tema, utilizamos DockIcon como contenedor,
-                          igual que con el resto de elementos del Dock. No forzamos
-                          que el botón rellene toda la celda, ya que DockIcon ya
-                          gestiona el tamaño y aplica un padding interno. El botón
-                          permanece pequeño dentro del círculo y hereda el borde y
-                          el fondo correctamente.
-                        */}
                         <DockIcon
                             className="bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted border border-border transition-colors"
                         >

@@ -1,4 +1,5 @@
 import Section from "../components/layout/Section"
+import { Globe } from "@/components/ui/globe"
 
 const interests = ["Open Source", "IA", "Web3", "UX", "DevOps", "Mentoring"]
 
@@ -9,25 +10,47 @@ export default function About() {
             title="Sobre mí"
             subtitle="Conoce un poco más sobre mi trayectoria y pasiones"
         >
-            <div className="grid gap-8 lg:grid-cols-3 lg:gap-12">
-                {/* Contenido principal */}
-                <div className="space-y-6 lg:col-span-2">
+            {/* IMPORTANTE: items-stretch para igualar alturas */}
+            <div className="grid gap-8 lg:grid-cols-4 lg:gap-12 lg:items-stretch">
+                {/* FOTO (izquierda) */}
+                <div className="flex h-full justify-center lg:justify-start">
+                    <div className="relative h-full w-64 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800">
+                        <img
+                            src="/me.png"
+                            alt="Foto de Alba"
+                            className="h-full w-full object-cover"
+                        />
+
+                        {/* Glow sutil (dark mode) */}
+                        <div className="pointer-events-none absolute inset-0 hidden dark:block">
+                            <div className="absolute -inset-10 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-transparent blur-2xl" />
+                        </div>
+
+                        <div className="center absolute bottom-3 left-3 rounded-full border border-white/10 bg-slate-900/70 px-3 py-1 text-xs font-medium text-white backdrop-blur dark:bg-slate-950/50">
+                            Full-Stack Developer
+                        </div>
+                    </div>
+                </div>
+
+                {/* CONTENIDO PRINCIPAL (centro) */}
+                <div className="lg:col-span-2 flex h-full flex-col">
                     {/* Introducción */}
                     <div className="space-y-4">
                         <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
                             👋 Me llamo{" "}
-                            <span className="font-semibold text-slate-900 dark:text-slate-100">
-                                Alba
-                            </span>{" "}
-                            y soy desarrolladora web full-stack apasionada por crear productos
+                            <span className="aurora-text font-semibold">Alba</span> y soy
+                            desarrolladora web full-stack apasionada por crear productos
                             digitales que marquen la diferencia.
                         </p>
 
                         <p className="leading-relaxed text-slate-600 dark:text-slate-400">
-                            Mi enfoque se centra en desarrollar soluciones web modernas,
-                            escalables y centradas en el usuario. Me encanta el proceso
-                            completo de desarrollo, desde el diseño de interfaces intuitivas
-                            hasta la implementación de arquitecturas backend robustas.
+                            Mi enfoque se centra en desarrollar{" "}
+                            <span className="aurora-text font-medium">
+                                soluciones web modernas, escalables y centradas en el usuario
+                            </span>
+                            . Me encanta el proceso completo de desarrollo, desde el diseño
+                            de interfaces intuitivas hasta la implementación de arquitecturas
+                            backend robustas.
                         </p>
 
                         <p className="leading-relaxed text-slate-600 dark:text-slate-400">
@@ -37,130 +60,59 @@ export default function About() {
                         </p>
                     </div>
 
-                    {/* Lo que hago */}
-                    <div className="space-y-4">
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-                            ¿Qué hago?
-                        </h3>
-
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            {/* Card 1 */}
-                            <div className="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
-                                    <svg
-                                        className="h-5 w-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                                        />
-                                    </svg>
+                    {/* CARD GLOBE (abajo alineada) */}
+                    <div className="mt-auto pt-6">
+                        <div className="relative h-full overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                            {/* Fondo decorativo */}
+                            <div className="pointer-events-none absolute inset-0">
+                                <div className="absolute inset-0 opacity-[0.25] dark:opacity-[0.35]">
+                                    <Globe />
                                 </div>
-                                <div>
-                                    <h4 className="font-semibold text-slate-900 dark:text-slate-100">
-                                        Desarrollo Frontend
-                                    </h4>
-                                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                                        Interfaces modernas con React, Next.js y Tailwind CSS
-                                    </p>
-                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/10 to-white dark:from-slate-950/30 dark:via-slate-950/10 dark:to-slate-900" />
                             </div>
 
-                            {/* Card 2 */}
-                            <div className="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
-                                    <svg
-                                        className="h-5 w-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
-                                        />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-slate-900 dark:text-slate-100">
-                                        Desarrollo Backend
-                                    </h4>
-                                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                                        APIs RESTful y bases de datos escalables
+                            {/* Contenido */}
+                            <div className="relative flex items-center justify-between gap-6">
+                                <div className="space-y-2">
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                                        Base
                                     </p>
-                                </div>
-                            </div>
 
-                            {/* Card 3 */}
-                            <div className="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400">
-                                    <svg
-                                        className="h-5 w-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a1 1 0 010 2.828l-8.486 8.485M7 17h.01"
-                                        />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-slate-900 dark:text-slate-100">
-                                        UI/UX Design
-                                    </h4>
-                                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                                        Diseño centrado en la experiencia del usuario
-                                    </p>
-                                </div>
-                            </div>
+                                    {/* Glow text: Madrid, Spain */}
+                                    <div className="relative inline-flex items-center">
+                                        {/* glow */}
+                                        <span
+                                            aria-hidden="true"
+                                            className="absolute -inset-2 blur-xl opacity-60 dark:opacity-70"
+                                        >
+                                            <span className="aurora-text text-2xl font-bold">
+                                                Madrid, Spain
+                                            </span>
+                                        </span>
 
-                            {/* Card 4 */}
-                            <div className="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400">
-                                    <svg
-                                        className="h-5 w-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M13 10V3L4 14h7v7l9-11h-7z"
-                                        />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-slate-900 dark:text-slate-100">
-                                        Optimización
-                                    </h4>
-                                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                                        Rendimiento, SEO y mejores prácticas
+                                        {/* texto real */}
+                                        <span className="aurora-text relative text-2xl font-bold">
+                                            Madrid, Spain
+                                        </span>
+                                    </div>
+
+                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                        Construyendo productos digitales con enfoque en UX,
+                                        rendimiento y arquitectura moderna.
                                     </p>
+                                </div>
+
+                                {/* Pill */}
+                                <div className="hidden shrink-0 sm:flex items-center rounded-full border border-slate-200 bg-white/60 px-3 py-1 text-xs font-medium text-slate-700 backdrop-blur dark:border-slate-800 dark:bg-slate-950/40 dark:text-slate-200">
+                                    Available for opportunities
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Sidebar */}
-                <div className="space-y-6">
+                {/* SIDEBAR (derecha) */}
+                <div className="flex h-full flex-col space-y-6">
                     {/* Datos rápidos */}
                     <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 dark:border-slate-800 dark:from-slate-900 dark:to-slate-900/50">
                         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -282,8 +234,8 @@ export default function About() {
                         </div>
                     </div>
 
-                    {/* CTA */}
-                    <div className="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-6 text-center dark:border-slate-800 dark:bg-slate-900/50">
+                    {/* CTA (abajo alineado) */}
+                    <div className="mt-auto rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-6 text-center dark:border-slate-800 dark:bg-slate-900/50">
                         <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
                             ¿Tienes un proyecto en mente?
                         </p>
@@ -309,36 +261,6 @@ export default function About() {
                                 />
                             </svg>
                         </a>
-                    </div>
-                </div>
-            </div>
-
-            {/* Stats opcionales */}
-            <div className="mt-12 grid gap-6 sm:grid-cols-3 lg:mt-16">
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center dark:border-slate-800 dark:bg-slate-900">
-                    <div className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                        15+
-                    </div>
-                    <div className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                        Proyectos completados
-                    </div>
-                </div>
-
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center dark:border-slate-800 dark:bg-slate-900">
-                    <div className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                        10+
-                    </div>
-                    <div className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                        Tecnologías dominadas
-                    </div>
-                </div>
-
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center dark:border-slate-800 dark:bg-slate-900">
-                    <div className="text-3xl font-bold text-slate-900 dark:text-slate-100">
-                        100%
-                    </div>
-                    <div className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                        Compromiso con el código
                     </div>
                 </div>
             </div>

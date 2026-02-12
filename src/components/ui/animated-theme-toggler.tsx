@@ -75,7 +75,7 @@ export const AnimatedThemeToggler = ({
       type="button"
       className={cn(
         // ✅ base: que no pinte nada raro y se centre
-        "appearance-none bg-transparent border-0 p-0 m-0 inline-flex items-center justify-center text-inherit outline-none focus:outline-none",
+        "appearance-none bg-transparent border-0 justify-center text-inherit outline-none focus:outline-none",
         // ✅ tamaño del icono (lucide)
         "[&_svg]:h-5 [&_svg]:w-5",
         className

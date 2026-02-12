@@ -1,5 +1,6 @@
 import { education } from "../data/education"
 import Section from "@/components/layout/Section"
+import { AuroraText } from "@/components/ui/aurora-text"
 
 export default function Education() {
     const hasEducation = education.length > 0
@@ -7,9 +8,20 @@ export default function Education() {
     return (
         <Section
             id="education"
-            title="Educación"
-            subtitle="Formación académica y estudios relevantes"
+            title=""
+            subtitle=""
         >
+            {/* Header centrado */}
+            <div className="mx-auto max-w-6xl text-center">
+                <p className="text-xs font-semibold tracking-[0.25em] text-slate-500 dark:text-slate-400">
+                    Education & Relevant studies
+                </p>
+
+                <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+                    <span className="text-slate-900 dark:text-white">Academic background </span>
+                    <AuroraText className="inline-block"> & Relevant Studies</AuroraText>
+                </h2>
+            </div>
             {/* Timeline / contenido */}
             {hasEducation ? (
                 <div className="relative mt-12">
@@ -147,7 +159,7 @@ export default function Education() {
             )}
 
             {/* Sección adicional: Certificaciones (se muestra siempre) */}
-            <div className="mt-16 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-8 dark:border-slate-800 dark:from-slate-900 dark:to-slate-900/50">
+            {/* <div className="mt-16 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-8 dark:border-slate-800 dark:from-slate-900 dark:to-slate-900/50">
                 <div className="flex items-start gap-4">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/30">
                         <svg
@@ -177,7 +189,7 @@ export default function Education() {
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </Section>
     )
 }

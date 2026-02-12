@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Section from "@/components/layout/Section"
+import { AuroraText } from "@/components/ui/aurora-text"
 
 type ContactMethod = {
     icon: React.ReactNode
@@ -125,6 +126,17 @@ export default function Contact() {
 
     return (
         <Section id="contact" title="Contacto" subtitle="¿Tienes un proyecto en mente? Hablemos">
+            {/* Header centrado */}
+            <div className="mx-auto max-w-6xl text-center">
+                <p className="text-xs font-semibold tracking-[0.25em] text-slate-500 dark:text-slate-400">
+                    CONTACT ME
+                </p>
+
+                <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+                    <span className="text-slate-900 dark:text-white">Project In Mind? </span>
+                    <AuroraText className="inline-block">Let's talk</AuroraText>
+                </h2>
+            </div>
             <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
                 {/* Información de contacto */}
                 <div className="space-y-8">

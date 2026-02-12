@@ -20,5 +20,8 @@ export const projects: ProjectItem[] = [
         description: "A web application that allows users to track their progress in AWS certifications and quizzes.",
         tags: ["Web Development", "AWS", "Node.js"],
         technologies: ["Node.js", "Express", "MongoDB", "AWS SDK"],
+        githubUrl: "https://github.com/albamdls/aws-quiz-tracker",
+        liveUrl: "https://albamdls.github.io/aws-quiz-tracker/",
+        imageUrl: "./aws-quiz-tracker.png",
     }
 ]
