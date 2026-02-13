@@ -7,7 +7,6 @@ import Projects from "./sections/Projects"
 import Contact from "./sections/Contact"
 
 import NavbarDock from "@/components/NavbarDock"
-import CornerImage from "@/components/layout/CornerImage"
 import DotGrid from "@/components/ui/DotGrid"
 import SmoothCursor from "./components/ui/smooth-cursor"
 
