@@ -49,7 +49,7 @@ export default function Navbar() {
                 {/* LEFT: Theme circle */}
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <div className="grid h-12 w-12 place-items-center rounded-full border border-slate-200/70 bg-white/70 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white dark:border-white/10 dark:bg-slate-950/50 dark:shadow-black/30">
+                        <div className="grid h-12 w-12 place-items-center rounded-full border border-slate-200/70 bg-white/70 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white dark:border-white/10 dark:bg-slate-950/50 dark:shadow-black/30 dark:hover:bg-slate-950">
                             <AnimatedThemeToggler />
                         </div>
                     </TooltipTrigger>
