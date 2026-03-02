@@ -141,6 +141,28 @@ export default function Contact() {
             <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-10">
                 {/* Información de contacto */}
                 <div className="space-y-6">
+
+                    {/* Disponibilidad (más compacta) */}
+                    <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+                        <div className="flex items-start gap-3">
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
+                                <div className="relative flex h-3 w-3">
+                                    <span className="absolute inline-flex h-3 w-3 animate-ping rounded-full bg-green-400 opacity-75" />
+                                    <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
+                                </div>
+                            </div>
+
+                            <div className="min-w-0">
+                                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                                    Disponible para proyectos
+                                </p>
+                                <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
+                                    Abierta a nuevas oportunidades y colaboraciones
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="space-y-2">
                         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
                             Formas de contacto
@@ -198,7 +220,7 @@ export default function Contact() {
                     </div>
 
                     {/* Disponibilidad (más compacta) */}
-                    <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+                    {/* <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
                         <div className="flex items-start gap-3">
                             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
                                 <div className="relative flex h-3 w-3">
@@ -216,7 +238,7 @@ export default function Contact() {
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Formulario de contacto (más compacto) */}

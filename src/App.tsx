@@ -6,6 +6,7 @@ import Stack from "./sections/Stack"
 import Career from "./sections/Career"
 import Projects from "./sections/Projects"
 import Contact from "./sections/Contact"
+import Footer from "@/components/layout/Footer"
 
 import Navbar from "@/components/Navbar"
 import DotGrid from "@/components/ui/DotGrid"
@@ -101,6 +102,9 @@ export default function App() {
             <Contact />
           </section>
         </main>
+
+        <Footer />
+
       </div>
     </div>
   )
