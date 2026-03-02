@@ -9,7 +9,7 @@ const NAV: NavItem[] = [
     { label: "About", id: "about" },
     { label: "Projects", id: "projects" },
     { label: "Skills", id: "stack" },
-    { label: "Other", id: "experience" }, // puedes cambiarlo por "Education" o "More"
+    { label: "Other", id: "experience" },
 ]
 
 function scrollToId(id: string) {
@@ -35,7 +35,7 @@ export default function Navbar() {
             },
             {
                 threshold: [0.25, 0.4, 0.55],
-                rootMargin: "-90px 0px -55% 0px", // compensa navbar fixed
+                rootMargin: "-90px 0px -55% 0px",
             }
         )
 
@@ -49,9 +49,12 @@ export default function Navbar() {
                 {/* LEFT: Theme circle */}
                 <Tooltip>
                     <TooltipTrigger asChild>
-                        <div className="grid h-12 w-12 place-items-center rounded-full border border-slate-200/70 bg-white/70 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white dark:border-white/10 dark:bg-slate-950/50 dark:shadow-black/30 dark:hover:bg-slate-950">
+                        <button
+                            type="button"
+                            className="grid h-12 w-12 place-items-center rounded-full border border-slate-200/70 bg-white/70 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-slate-950/50 dark:shadow-black/30 dark:hover:bg-slate-950"
+                        >
                             <AnimatedThemeToggler />
-                        </div>
+                        </button>
                     </TooltipTrigger>
                     <TooltipContent side="bottom" sideOffset={10} className="rounded-xl px-4 py-2 text-sm">
                         <p>Tema</p>
@@ -66,10 +69,12 @@ export default function Navbar() {
                             <button
                                 key={item.id}
                                 type="button"
-                                onClick={() => scrollToId(item.id)}
+                                onClick={() => {
+                                    setActive(item.id)
+                                    scrollToId(item.id)
+                                }}
                                 className={[
-                                    "rounded-full px-4 py-2 text-sm font-semibold transition",
-                                    "focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent",
+                                    "rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent",
                                     isActive
                                         ? "bg-slate-900 text-white shadow-sm dark:bg-white dark:text-slate-900"
                                         : "text-slate-700 hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10",
@@ -82,8 +87,9 @@ export default function Navbar() {
                 </nav>
 
                 {/* RIGHT: CTA pill */}
-                <a
-                    href="#contact"
+                <button
+                    type="button"
+                    onClick={() => scrollToId("contact")}
                     className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white dark:border-white/10 dark:bg-slate-950/50 dark:text-white dark:shadow-black/30 dark:hover:bg-white/10"
                 >
                     <span className="grid h-8 w-8 place-items-center rounded-full bg-slate-900/5 dark:bg-white/10">
@@ -98,7 +104,7 @@ export default function Navbar() {
                         </svg>
                     </span>
                     Contact me
-                </a>
+                </button>
             </div>
         </header>
     )
