@@ -1,12 +1,13 @@
 import Hero from "./sections/Hero"
 import About from "./sections/About"
 import Stack from "./sections/Stack"
-import Experience from "./sections/Experience"
-import Education from "./sections/Education"
+// import Experience from "./sections/Experience"
+// import Education from "./sections/Education"
+import Career from "./sections/Career"
 import Projects from "./sections/Projects"
 import Contact from "./sections/Contact"
 
-import NavbarDock from "@/components/NavbarDock"
+import Navbar from "@/components/Navbar"
 import DotGrid from "@/components/ui/DotGrid"
 import SmoothCursor from "./components/ui/smooth-cursor"
 
@@ -64,7 +65,7 @@ export default function App() {
 
       {/* UI encima del fondo */}
       <div className="relative z-10">
-        <NavbarDock />
+        <Navbar />
         <main className="space-y-32">
           <section id="hero">
             <Hero />
@@ -83,12 +84,16 @@ export default function App() {
           </section>
 
           <section id="experience">
+            <Career />
+          </section>
+
+          {/* <section id="experience">
             <Experience />
           </section>
 
           <section id="education">
             <Education />
-          </section>
+          </section> */}
 
 
 

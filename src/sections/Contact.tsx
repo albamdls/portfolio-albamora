@@ -12,8 +12,7 @@ type ContactMethod = {
 
 const colorClasses: Record<ContactMethod["color"], string> = {
     blue: "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
-    purple:
-        "bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400",
+    purple: "bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400",
     green: "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400",
 }
 
@@ -82,8 +81,8 @@ export default function Contact() {
                 </svg>
             ),
             title: "Email",
-            value: "jalbamora@gmail.com",
-            href: "mailto:jalbamora@gmail.com",
+            value: "albamora.dev@gmail.com",
+            href: "mailto:albamora.dev@gmail.com",
             color: "blue",
         },
         {
@@ -118,39 +117,41 @@ export default function Contact() {
                 </svg>
             ),
             title: "GitHub",
-            value: "@albamora",
-            href: "https://github.com/albamora",
+            value: "@albamdls",
+            href: "https://github.com/albamdls",
             color: "green",
         },
     ]
 
     return (
-        <Section id="contact" title="Contacto" subtitle="¿Tienes un proyecto en mente? Hablemos">
-            {/* Header centrado */}
-            <div className="mx-auto max-w-6xl text-center">
-                <p className="text-xs font-semibold tracking-[0.25em] text-slate-500 dark:text-slate-400">
+        <Section id="contact" title="" subtitle="">
+            {/* Header centrado (más compacto) */}
+            <div className="mx-auto max-w-5xl text-center">
+                <p className="text-[11px] font-semibold tracking-[0.22em] text-slate-500 dark:text-slate-400">
                     CONTACT ME
                 </p>
 
-                <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+                <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
                     <span className="text-slate-900 dark:text-white">Project In Mind? </span>
                     <AuroraText className="inline-block">Let's talk</AuroraText>
                 </h2>
             </div>
-            <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+
+            {/* Layout (menos margen, menos gap) */}
+            <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-10">
                 {/* Información de contacto */}
-                <div className="space-y-8">
-                    <div className="space-y-4">
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+                <div className="space-y-6">
+                    <div className="space-y-2">
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
                             Formas de contacto
                         </h3>
-                        <p className="text-slate-600 dark:text-slate-400">
-                            Puedes contactarme a través de cualquiera de estos canales. Respondo lo antes posible.
+                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                            Puedes contactarme por cualquiera de estos canales. Respondo lo antes posible.
                         </p>
                     </div>
 
-                    {/* Métodos de contacto */}
-                    <div className="space-y-4">
+                    {/* Métodos de contacto (cards más finas) */}
+                    <div className="space-y-3">
                         {contactMethods.map((method) => {
                             const isExternal = method.href.startsWith("http")
                             return (
@@ -159,26 +160,26 @@ export default function Contact() {
                                     href={method.href}
                                     target={isExternal ? "_blank" : undefined}
                                     rel={isExternal ? "noopener noreferrer" : undefined}
-                                    className="group flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900"
+                                    className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
                                     aria-label={`Abrir ${method.title}`}
                                 >
                                     <div
-                                        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110 ${colorClasses[method.color]}`}
+                                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-105 ${colorClasses[method.color]}`}
                                     >
                                         {method.icon}
                                     </div>
 
                                     <div className="min-w-0 flex-1">
-                                        <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                                        <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                                             {method.title}
                                         </p>
-                                        <p className="mt-1 truncate font-semibold text-slate-900 dark:text-slate-100">
+                                        <p className="mt-0.5 truncate text-sm font-semibold text-slate-900 dark:text-slate-100">
                                             {method.value}
                                         </p>
                                     </div>
 
                                     <svg
-                                        className="h-5 w-5 text-slate-400 transition-transform group-hover:translate-x-1 dark:text-slate-600"
+                                        className="h-4 w-4 text-slate-400 transition-transform group-hover:translate-x-1 dark:text-slate-600"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
@@ -196,38 +197,38 @@ export default function Contact() {
                         })}
                     </div>
 
-                    {/* Disponibilidad */}
-                    <div className="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900/50">
+                    {/* Disponibilidad (más compacta) */}
+                    <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
                         <div className="flex items-start gap-3">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
-                                {/* Hacemos el contenedor relative para que el ping (absolute) se posicione bien */}
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
                                 <div className="relative flex h-3 w-3">
                                     <span className="absolute inline-flex h-3 w-3 animate-ping rounded-full bg-green-400 opacity-75" />
                                     <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
                                 </div>
                             </div>
-                            <div>
-                                <p className="font-semibold text-slate-900 dark:text-slate-100">
+
+                            <div className="min-w-0">
+                                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                                     Disponible para proyectos
                                 </p>
-                                <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                                    Actualmente abierta a nuevas oportunidades y colaboraciones
+                                <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
+                                    Abierta a nuevas oportunidades y colaboraciones
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Formulario de contacto */}
-                <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+                {/* Formulario de contacto (más compacto) */}
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-6">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
                         Envíame un mensaje
                     </h3>
-                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                    <p className="mt-1.5 text-sm text-slate-600 dark:text-slate-400">
                         Rellena el formulario y te responderé lo antes posible
                     </p>
 
-                    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                    <form onSubmit={handleSubmit} className="mt-5 space-y-4">
                         {/* Campo nombre */}
                         <div>
                             <label
@@ -243,7 +244,7 @@ export default function Contact() {
                                 placeholder="Tu nombre completo"
                                 value={formData.name}
                                 onChange={handleChange}
-                                className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-400"
+                                className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-400"
                                 required
                                 autoComplete="name"
                             />
@@ -264,7 +265,7 @@ export default function Contact() {
                                 placeholder="tu@email.com"
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-400"
+                                className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-400"
                                 required
                                 autoComplete="email"
                             />
@@ -281,26 +282,26 @@ export default function Contact() {
                             <textarea
                                 id="message"
                                 name="message"
-                                rows={5}
+                                rows={4}
                                 placeholder="Cuéntame sobre tu proyecto o consulta..."
                                 value={formData.message}
                                 onChange={handleChange}
-                                className="mt-2 w-full resize-none rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-400"
+                                className="mt-2 w-full resize-none rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-400"
                                 required
                             />
                         </div>
 
-                        {/* Botón enviar */}
+                        {/* Botón enviar (menos alto, sin escala tan grande) */}
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="group relative w-full overflow-hidden rounded-lg bg-slate-900 px-6 py-3 font-semibold text-white shadow-lg shadow-slate-900/10 transition-all hover:scale-105 hover:bg-slate-800 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 dark:bg-slate-100 dark:text-slate-900 dark:shadow-slate-100/10 dark:hover:bg-slate-200"
+                            className="group relative w-full overflow-hidden rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition-all hover:bg-slate-800 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900 dark:shadow-slate-100/10 dark:hover:bg-slate-200"
                         >
                             <span className="relative flex items-center justify-center gap-2">
                                 {isSubmitting ? (
                                     <>
                                         <svg
-                                            className="h-5 w-5 animate-spin"
+                                            className="h-4 w-4 animate-spin"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             aria-hidden="true"
@@ -325,7 +326,7 @@ export default function Contact() {
                                     <>
                                         Enviar mensaje
                                         <svg
-                                            className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                                            className="h-4 w-4 transition-transform group-hover:translate-x-1"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             stroke="currentColor"
@@ -345,8 +346,8 @@ export default function Contact() {
 
                         {/* Mensaje de éxito */}
                         {submitted && (
-                            <div className="flex items-center gap-3 rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-900/20">
-                                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50">
+                            <div className="flex items-start gap-3 rounded-lg border border-green-200 bg-green-50 p-3 dark:border-green-800 dark:bg-green-900/20">
+                                <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50">
                                     <svg
                                         className="h-4 w-4 text-green-600 dark:text-green-400"
                                         fill="none"

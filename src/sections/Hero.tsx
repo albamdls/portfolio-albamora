@@ -1,162 +1,254 @@
-import { profile } from "../data/profile";
-import { CoolMode } from "@/components/ui/cool-mode";
-import { TypingAnimation } from "@/components/ui/typing-animation";
-import { SparklesText } from "@/components/ui/sparkles-text";
-import { TextAnimate } from "@/components/ui/text-animate";
+import { useEffect, useMemo, useRef, useState } from "react"
+import { profile } from "../data/profile"
+import { TypingAnimation } from "@/components/ui/typing-animation"
+
+type Role = "user" | "assistant"
+type Msg = { id: string; role: Role; text: string }
+
+function uid() {
+    return Math.random().toString(36).slice(2) + Date.now().toString(36)
+}
+
+function scrollToId(id: string) {
+    const el = document.getElementById(id)
+    if (!el) return
+    el.scrollIntoView({ behavior: "smooth", block: "start" })
+}
+
+function mockReply(input: string) {
+    const t = input.toLowerCase()
+    if (t.includes("proyecto") || t.includes("work") || t.includes("projects")) {
+        return "En Projects puedes ver una selección de proyectos con el stack y el objetivo de cada uno. ¿Quieres que te recomiende el más parecido a tu idea?"
+    }
+    if (t.includes("skill") || t.includes("stack") || t.includes("tecnolog")) {
+        return "Trabajo principalmente con React/TypeScript y herramientas modernas para frontend, e integro backend/APIs cuando el proyecto lo necesita. ¿Te interesa más frontend, backend o fullstack?"
+    }
+    if (t.includes("contact") || t.includes("contrat") || t.includes("hablemos")) {
+        return "Perfecto — baja a Contact y cuéntame qué necesitas. Si me das 2 detalles (tipo de web + plazo), te digo un enfoque y próximos pasos."
+    }
+    if (t.includes("sobre") || t.includes("about")) {
+        return "En About cuento mi enfoque y cómo trabajo. Si me dices tu objetivo, puedo guiarte sobre cómo lo haríamos."
+    }
+    return "¡Genial! Aún es una demo visual (sin backend), pero puedo orientarte. ¿Qué quieres construir o mejorar?"
+}
+
+const pills = [
+    { label: "Work", id: "projects" },
+    { label: "About me", id: "about" },
+    { label: "Skills", id: "stack" },
+    { label: "Contact", id: "contact" },
+]
 
 export default function Hero() {
     return (
-        <section className="relative overflow-hidden px-6 py-20 sm:py-28 lg:py-32">
-            <div className="mx-auto max-w-6xl">
-                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-                    {/* LEFT - Content */}
-                    <div className="space-y-5 lg:order-2">
-                        {/* Typing introduction */}
-                        <div className="space-y-2">
-                            <h2 className="text-lg font-medium text-slate-600 dark:text-slate-400">
-                                <TypingAnimation duration={50}>{`Hi! I'm`}</TypingAnimation>
-                            </h2>
-                            <h1 className="text-5xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl">
-                                <TypingAnimation
-                                    className="inline bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent"
-                                    duration={45}
-                                    startOnView
-                                    showCursor
-                                    blinkCursor
-                                    cursorStyle="line"
-                                >
-                                    {`${profile.name}`}
-                                </TypingAnimation>
-                                <span className="inline-block animate-[wave_1s_ease-in-out_3] origin-[70%_70%] ml-2">
-                                    👋🏻
-                                </span>
-                            </h1>
-                        </div>
+        <section
+            className={[
+                "relative overflow-hidden px-6",
+                // Deja sitio para navbar fija (ajusta si tu navbar es más alta)
+                "pt-24 sm:pt-28",
+                // Altura real del viewport (svh) menos el padding superior
+                // Esto ayuda a que el contenido se centre sin pasarse.
+                "min-h-[calc(100svh-6rem)]",
+            ].join(" ")}
+        >
+            <div className="mx-auto w-full max-w-5xl">
+                <div className="flex flex-col items-center text-center">
+                    {/* Avatar */}
+                    <img
+                        src="./alba-hero.gif"
+                        alt="Foto de perfil"
+                        className="h-28 w-28 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-[2.25rem] object-contain"
+                    />
 
-                        {/* Headline + frase */}
-                        <div className="relative space-y-2">
-                            <SparklesText
-                                className="text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl lg:text-4xl"
-                                sparklesCount={12}
-                                colors={{ first: "#60A5FA", second: "#A78BFA" }}
+                    {/* H1 MÁS PEQUEÑO (como pides) */}
+                    <h1 className="mt-4 text-xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-2xl lg:text-3xl">
+                        <span className="text-slate-900 dark:text-white">Hi, I&apos;m </span>
+                        <TypingAnimation
+                            className="inline font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent"
+                            duration={45}
+                            startOnView
+                            showCursor
+                            blinkCursor
+                            cursorStyle="line"
+                        >
+                            {profile.name}
+                        </TypingAnimation>
+                    </h1>
+
+                    {/* Download CV pill (sustituye al texto) */}
+                    <div className="mt-3">
+                        <a
+                            href={profile.cvUrl}
+                            download
+                            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-2 text-xs font-semibold text-white shadow-xl shadow-blue-600/30 transition hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-600/40"
+                        >
+                            {/* Shine */}
+                            <span className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                            <span className="relative z-10 text-white">
+                                Download CV
+                            </span>
+
+                            <svg
+                                className="relative z-10 h-4 w-4 text-white transition-transform duration-300 group-hover:translate-x-1"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
                             >
-                                {profile.headline}
-                            </SparklesText>
-                            <p className="max-w-xl text-base sm:text-lg text-slate-600 dark:text-slate-300">
-                                Construyendo soluciones integrales, aprendiendo cada día para crear experiencias mejores.
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3 3m0 0l-3-3m3 3V8"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                {/* Chat (altura controlada para que SIEMPRE quepa) */}
+                <div className="mt-6 pb-8">
+                    <HeroChatCard />
+                </div>
+            </div>
+        </section>
+    )
+}
+
+/* ---------- Chat card (estilo captura, pero responsive para que quepa) ---------- */
+
+function HeroChatCard() {
+    const [input, setInput] = useState("")
+    const [isTyping, setIsTyping] = useState(false)
+    const [messages, setMessages] = useState<Msg[]>([]) // vacío como la captura
+
+    const viewportRef = useRef<HTMLDivElement | null>(null)
+    const canSend = useMemo(() => input.trim().length > 0 && !isTyping, [input, isTyping])
+
+    useEffect(() => {
+        if (!viewportRef.current) return
+        viewportRef.current.scrollTop = viewportRef.current.scrollHeight
+    }, [messages, isTyping])
+
+    function send(text: string) {
+        const q = text.trim()
+        if (!q) return
+        setMessages((prev) => [...prev, { id: uid(), role: "user", text: q }])
+        setInput("")
+        setIsTyping(true)
+
+        window.setTimeout(() => {
+            setMessages((prev) => [...prev, { id: uid(), role: "assistant", text: mockReply(q) }])
+            setIsTyping(false)
+        }, 550)
+    }
+
+    function onSubmit(e: React.FormEvent) {
+        e.preventDefault()
+        if (!canSend) return
+        send(input)
+    }
+
+    const isEmpty = messages.length === 0 && !isTyping
+
+    return (
+        <div className="relative mx-auto max-w-4xl overflow-hidden rounded-[2.25rem] border border-slate-200/70 bg-white/60 shadow-2xl shadow-slate-900/10 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/50 dark:shadow-black/30">
+            {/* Área grande */}
+            <div className="relative px-5 py-6 sm:px-8 sm:py-8">
+                {/* fondo suave */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-pink-500/10 dark:from-blue-400/10 dark:via-purple-400/5 dark:to-pink-400/10" />
+
+                <div className="relative">
+                    {/* Placeholder centrado (como en la captura) */}
+                    {isEmpty && (
+                        <div className="grid h-44 place-items-center sm:h-52 lg:h-56">
+                            <p className="text-center text-sm font-medium text-slate-500 dark:text-slate-300">
+                                Ask anything about me…
                             </p>
                         </div>
+                    )}
 
-                        {/* Summary */}
-                        {profile.summary && (
-                            <TextAnimate
-                                as="p"
-                                animation="fadeIn"
-                                by="word"
-                                once
-                                delay={180}
-                                className="max-w-xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300"
-                            >
-                                {profile.summary}
-                            </TextAnimate>
-                        )}
+                    {/* Conversación */}
+                    {!isEmpty && (
+                        <div ref={viewportRef} className="h-44 overflow-y-auto rounded-2xl px-1 sm:h-52 lg:h-56">
+                            <div className="space-y-3">
+                                {messages.map((m) => (
+                                    <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                                        <div
+                                            className={[
+                                                "max-w-[85%] rounded-3xl px-4 py-3 text-sm leading-relaxed sm:text-[15px]",
+                                                m.role === "user"
+                                                    ? "bg-slate-900 text-white shadow-lg shadow-slate-900/15 dark:bg-white dark:text-slate-900 dark:shadow-white/10"
+                                                    : "bg-white/70 text-slate-800 ring-1 ring-slate-900/5 dark:bg-white/10 dark:text-slate-100 dark:ring-white/10",
+                                            ].join(" ")}
+                                        >
+                                            {m.text}
+                                        </div>
+                                    </div>
+                                ))}
 
-                        {/* CTAs */}
-                        <div className="flex flex-wrap gap-3 pt-1">
-                            <CoolMode>
-                                <a
-                                    href={profile.cvUrl}
-                                    download
-                                    className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-sm font-semibold text-white drop-shadow-sm shadow-xl shadow-blue-600/30 transition-all hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-600/40 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-950"
-                                >
-                                    <span className="relative z-20 text-white">Descargar CV</span>
-                                    <svg
-                                        className="relative z-20 w-4 h-4 text-white transition-transform group-hover:translate-x-1"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3 3m0 0l-3-3m3 3V8"
-                                        />
-                                    </svg>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity group-hover:opacity-100" />
-                                </a>
-                            </CoolMode>
-
-                            {/* GitHub */}
-                            <a
-                                href={profile.links.github}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="group inline-flex items-center gap-2 rounded-2xl bg-white dark:bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-900 dark:text-white ring-1 ring-slate-900/10 dark:ring-white/10 transition-all hover:shadow-lg hover:scale-[1.02]"
-                            >
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                                </svg>
-                                <span>GitHub</span>
-                                <span className="w-4 h-4 inline-flex items-center justify-center">
-                                    <svg
-                                        className="w-4 h-4 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-1"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                        />
-                                    </svg>
-                                </span>
-                            </a>
-
-                            {/* LinkedIn */}
-                            <a
-                                href={profile.links.linkedin}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="group inline-flex items-center gap-2 rounded-2xl bg-white dark:bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-900 dark:text-white ring-1 ring-slate-900/10 dark:ring-white/10 transition-all hover:shadow-lg hover:scale-[1.02]"
-                            >
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                                </svg>
-                                <span>LinkedIn</span>
-                                <span className="w-4 h-4 inline-flex items-center justify-center">
-                                    <svg
-                                        className="w-4 h-4 opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-1"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                        />
-                                    </svg>
-                                </span>
-                            </a>
+                                {isTyping && (
+                                    <div className="flex justify-start">
+                                        <div className="rounded-3xl bg-white/70 px-4 py-3 text-sm text-slate-800 ring-1 ring-slate-900/5 dark:bg-white/10 dark:text-slate-100 dark:ring-white/10">
+                                            <TypingDots />
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    )}
 
-                    {/* RIGHT - Image */}
-                    <div className="relative lg:order-1">
-                        <div className="relative overflow-hidden rounded-3xl">
-                            <img
-                                src="./alba-hero.gif"
-                                alt="Foto de perfil"
-                                className="w-full h-auto transition-transform duration-700 hover:scale-105"
-                            />
+                    {/* Pills */}
+                    <div className="mt-4 flex justify-center">
+                        <div className="flex flex-wrap items-center justify-center gap-2">
+                            {pills.map((p) => (
+                                <button
+                                    key={p.id}
+                                    type="button"
+                                    onClick={() => scrollToId(p.id)}
+                                    className="rounded-full border border-slate-200 bg-white/70 px-4 py-1.5 text-xs font-medium text-slate-700 shadow-sm transition hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
+                                >
+                                    {p.label}
+                                </button>
+                            ))}
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    );
+
+            {/* Input */}
+            <div className="border-t border-slate-200/70 bg-white/50 px-5 py-4 dark:border-white/10 dark:bg-slate-950/40 sm:px-8">
+                <form onSubmit={onSubmit} className="flex items-center gap-3">
+                    <input
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder="Ask anything about me…"
+                        className="h-11 flex-1 rounded-2xl border border-slate-200 bg-white/80 px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-300 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-slate-400 dark:focus:border-white/20"
+                    />
+                    <button
+                        type="submit"
+                        disabled={!canSend}
+                        className={[
+                            "h-11 rounded-2xl px-6 text-sm font-semibold transition",
+                            canSend
+                                ? "bg-slate-900 text-white shadow-lg shadow-slate-900/15 hover:scale-[1.02] dark:bg-white dark:text-slate-900 dark:shadow-white/10"
+                                : "bg-slate-200 text-slate-500 dark:bg-white/10 dark:text-slate-400",
+                        ].join(" ")}
+                    >
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+    )
+}
+
+function TypingDots() {
+    return (
+        <div className="flex items-center gap-1">
+            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-current [animation-delay:-0.2s]" />
+            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-current [animation-delay:-0.1s]" />
+            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-current" />
+        </div>
+    )
 }

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import { projects } from "@/data/projects"
 import { Safari } from "@/components/ui/safari"
-import NavbarDock from "@/components/NavbarDock"
+// import NavbarDock from "@/components/NavbarDock"
 
 function pad2(n: number) {
     return String(n).padStart(2, "0")
@@ -42,7 +42,7 @@ export default function ProjectsPage() {
     return (
         <div className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
             {/* si quieres el mismo dock arriba */}
-            <NavbarDock />
+            {/* <NavbarDock /> */}
 
             <main className="px-6 py-20 sm:py-24">
                 <div className="mx-auto max-w-6xl">
