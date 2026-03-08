@@ -8,14 +8,11 @@ function statusLabel(status: CertificationStatus) {
 
 function statusPillClasses(status: CertificationStatus) {
     if (status === "completed") {
-        // ✅ Verde
         return "bg-emerald-100 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-200 dark:ring-emerald-900/60"
     }
     if (status === "in_progress") {
-        // 🔶 Naranja
         return "bg-amber-100 text-amber-900 ring-1 ring-amber-200 dark:bg-amber-950/45 dark:text-amber-200 dark:ring-amber-900/60"
     }
-    // 🔵 Azul (planned)
     return "bg-sky-100 text-sky-900 ring-1 ring-sky-200 dark:bg-sky-950/45 dark:text-sky-200 dark:ring-sky-900/60"
 }
 
@@ -49,13 +46,18 @@ export function CertificationsGrid() {
     return (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {certifications.map((c) => {
-                const CardTag: any = c.credentialUrl ? "a" : "article"
-                const linkProps = c.credentialUrl
+                const credentialUrl = c.credentialUrl?.trim() || undefined
+                const badgeSrc = c.badgeSrc
+                    ? `${import.meta.env.BASE_URL}${c.badgeSrc.replace(/^\//, "")}`
+                    : undefined
+
+                const CardTag = credentialUrl ? "a" : "article"
+                const linkProps = credentialUrl
                     ? {
-                        href: c.credentialUrl,
-                        target: "_blank",
-                        rel: "noreferrer",
-                    }
+                          href: credentialUrl,
+                          target: "_blank",
+                          rel: "noreferrer",
+                      }
                     : {}
 
                 return (
@@ -67,10 +69,9 @@ export function CertificationsGrid() {
                             "bg-white/80 shadow-sm backdrop-blur",
                             "transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-200/40",
                             "dark:border-slate-800 dark:bg-slate-900/70 dark:hover:shadow-slate-900/40",
-                            c.credentialUrl ? "cursor-pointer" : "",
+                            credentialUrl ? "cursor-pointer" : "",
                         ].join(" ")}
                     >
-                        {/* Status pill (siempre visible) */}
                         <div className="absolute right-3 top-3 z-20">
                             <span
                                 className={[
@@ -82,22 +83,19 @@ export function CertificationsGrid() {
                             </span>
                         </div>
 
-                        {/* Badge gigante (ocupa la card) */}
                         <div className="relative flex aspect-[4/3] w-full items-center justify-center p-8">
                             <img
-                                src={`${import.meta.env.BASE_URL}${c.badgeSrc}`}
+                                src={badgeSrc}
                                 alt={c.badgeAlt ?? c.title}
                                 className={[
                                     "max-h-full max-w-full object-contain",
                                     "transition-transform duration-300 group-hover:scale-[1.06]",
-                                    // un pelín de atenuación al mostrar overlay
                                     "group-hover:opacity-60",
                                 ].join(" ")}
                                 loading="lazy"
                             />
                         </div>
 
-                        {/* Overlay: aparece en hover/focus */}
                         <div
                             className={[
                                 "absolute inset-0 z-10 flex flex-col justify-end",
@@ -107,7 +105,9 @@ export function CertificationsGrid() {
                             ].join(" ")}
                         >
                             <div className="translate-y-2 transition-transform duration-300 group-hover:translate-y-0">
-                                <h3 className="text-base font-bold leading-snug text-white">{c.title}</h3>
+                                <h3 className="text-base font-bold leading-snug text-white">
+                                    {c.title}
+                                </h3>
                                 <p className="mt-1 text-sm text-slate-200/90">{c.issuer}</p>
 
                                 {c.skills?.length ? (
@@ -128,7 +128,7 @@ export function CertificationsGrid() {
                                     </div>
                                 ) : null}
 
-                                {c.credentialUrl ? (
+                                {credentialUrl ? (
                                     <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white/90">
                                         View credential <span aria-hidden>↗</span>
                                     </div>
@@ -136,7 +136,6 @@ export function CertificationsGrid() {
                             </div>
                         </div>
 
-                        {/* Hover bar (como antes) */}
                         <div className="absolute inset-x-0 bottom-0 z-30 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-blue-400 dark:to-purple-400" />
                     </CardTag>
                 )

@@ -20,10 +20,8 @@ export default function App() {
 
       {/* GLOBAL BACKGROUND */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        {/* Gradient base */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900" />
 
-        {/* DOTS — LIGHT */}
         <div className="absolute inset-0 dark:hidden">
           <DotGrid
             dotSize={2.5}
@@ -39,7 +37,6 @@ export default function App() {
           />
         </div>
 
-        {/* DOTS — DARK */}
         <div className="absolute inset-0 hidden dark:block">
           <DotGrid
             dotSize={2.5}
@@ -55,41 +52,40 @@ export default function App() {
           />
         </div>
 
-        {/* Vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,transparent_65%,rgba(2,6,23,0.03)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,transparent_65%,rgba(0,0,0,0.35)_100%)]" />
       </div>
 
-      {/* SMOKEY CURSOR — siempre detrás de la UI */}
+      {/* SMOKEY CURSOR */}
       <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
         <SmokeyCursor />
       </div>
 
-      {/* UI por encima del cursor */}
-      <div className="relative z-20">
+      {/* UI */}
+      <div className="relative z-30">
         <Navbar />
 
         <main className="space-y-32">
-          <section id="hero" className="relative z-20">
+          <section id="hero" className="relative z-10">
             <Hero />
           </section>
 
-          <section id="about" className="relative z-20">
+          <section id="about" className="relative z-10">
             <About />
           </section>
 
-          <section id="stack" className="relative z-20">
+          <section id="stack" className="relative z-10">
             <Stack />
           </section>
 
-          <section id="projects" className="relative z-20">
+          <section id="projects" className="relative z-10">
             <Projects />
           </section>
 
-          <section id="experience" className="relative z-20">
+          <section id="experience" className="relative z-10">
             <Career />
           </section>
 
-          <section id="contact" className="relative z-20">
+          <section id="contact" className="relative z-10">
             <Contact />
           </section>
         </main>
