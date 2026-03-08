@@ -17,7 +17,7 @@ export const certifications: Certification[] = [
         code: "DEA-C01",
         issuer: "Amazon Web Services",
         status: "in_progress",
-        badgeSrc: "./public/badges/aws-dea-c01.webp",
+        badgeSrc: "/badges/aws-dea-c01.webp",
         badgeAlt: "AWS Data Engineer Associate badge",
         skills: [
             "Data pipelines",
@@ -49,7 +49,7 @@ export const certifications: Certification[] = [
         code: "CLF-C02",
         issuer: "Amazon Web Services",
         status: "completed",
-        badgeSrc: "./public/badges/aws-clf-c02.png",
+        badgeSrc: "/badges/aws-clf-c02.png",
         badgeAlt: "AWS Cloud Practitioner badge",
         skills: [
             "Cloud fundamentals",

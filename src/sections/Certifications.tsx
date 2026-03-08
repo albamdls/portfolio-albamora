@@ -92,7 +92,7 @@ export function CertificationsGrid() {
                                     "transition-transform duration-300 group-hover:scale-[1.06]",
                                     "group-hover:opacity-60",
                                 ].join(" ")}
-                                loading="lazy"
+                                // loading="lazy"
                             />
                         </div>
 
