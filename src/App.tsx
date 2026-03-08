@@ -11,15 +11,15 @@ import Footer from "@/components/layout/Footer"
 import Navbar from "@/components/Navbar"
 import DotGrid from "@/components/ui/DotGrid"
 import SmoothCursor from "./components/ui/smooth-cursor"
-
 import SmokeyCursor from "@/components/lightswind/smokey-cursor"
 
 export default function App() {
   return (
-    <div className="relative isolate min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
+    <div className="relative isolate min-h-screen overflow-x-hidden bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
       <SmoothCursor />
+
       {/* GLOBAL BACKGROUND */}
-      <div className="pointer-events-none fixed inset-0 z-0">
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         {/* Gradient base */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900" />
 
@@ -59,52 +59,42 @@ export default function App() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,transparent_65%,rgba(2,6,23,0.03)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_0%,transparent_65%,rgba(0,0,0,0.35)_100%)]" />
       </div>
 
-      {/* SMOKEY CURSOR: capa intermedia (DETRÁS de la UI) */}
-      <div className="smokey-layer pointer-events-none fixed inset-0">
+      {/* SMOKEY CURSOR — siempre detrás de la UI */}
+      <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
         <SmokeyCursor />
       </div>
 
-      {/* UI encima del fondo */}
-      <div className="relative z-10">
+      {/* UI por encima del cursor */}
+      <div className="relative z-20">
         <Navbar />
+
         <main className="space-y-32">
-          <section id="hero">
+          <section id="hero" className="relative z-20">
             <Hero />
           </section>
 
-          <section id="about">
+          <section id="about" className="relative z-20">
             <About />
           </section>
 
-          <section id="stack">
+          <section id="stack" className="relative z-20">
             <Stack />
           </section>
 
-          <section id="projects">
+          <section id="projects" className="relative z-20">
             <Projects />
           </section>
 
-          <section id="experience">
+          <section id="experience" className="relative z-20">
             <Career />
           </section>
 
-          {/* <section id="experience">
-            <Experience />
-          </section>
-
-          <section id="education">
-            <Education />
-          </section> */}
-
-
-
-          <section id="contact">
+          <section id="contact" className="relative z-20">
             <Contact />
           </section>
         </main>
 
         <Footer />
-
       </div>
     </div>
   )
