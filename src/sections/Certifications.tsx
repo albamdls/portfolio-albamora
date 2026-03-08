@@ -85,15 +85,14 @@ export function CertificationsGrid() {
                         {/* Badge gigante (ocupa la card) */}
                         <div className="relative flex aspect-[4/3] w-full items-center justify-center p-8">
                             <img
-                                src={`${import.meta.env.BASE_URL}${c.badgeSrc}`}
+                                src={`${import.meta.env.BASE_URL}${String(c.badgeSrc).replace(/^\/+/, "")}`}
                                 alt={c.badgeAlt ?? c.title}
                                 className={[
                                     "max-h-full max-w-full object-contain",
                                     "transition-transform duration-300 group-hover:scale-[1.06]",
-                                    // un pelín de atenuación al mostrar overlay
                                     "group-hover:opacity-60",
                                 ].join(" ")}
-                                loading="lazy"
+                                // loading="lazy"
                             />
                         </div>
 

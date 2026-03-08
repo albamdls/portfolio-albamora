@@ -94,7 +94,7 @@ export default function About() {
                 {/* CENTER: PHOTO */}
                 <article className="relative z-10 overflow-hidden rounded-3xl border border-slate-200/70 bg-white/80 shadow-sm backdrop-blur dark:border-white/10 dark:bg-slate-900/85 lg:col-start-6 lg:col-span-2 lg:row-start-1 lg:row-span-2">
                     <img
-                        src="/me.png"
+                        src={`${import.meta.env.BASE_URL}me.png`}
                         alt="Photo of Alba"
                         className="h-full w-full object-cover"
                     />
