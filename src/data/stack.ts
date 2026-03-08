@@ -302,10 +302,4 @@ export const stack: StackItem[] = [
         category: "Software & Tools",
         group: "Software & Tools",
     },
-    {
-        name: "Bruno",
-        iconUrl: "https://docs.usebruno.com/bruno.png",
-        category: "Software & Tools",
-        group: "Software & Tools",
-    },
 ]
