@@ -29,6 +29,16 @@ export const projects: ProjectItem[] = [
         liveUrl: "https://albamdls.github.io/aws-quiz-tracker/",
         imageUrl: "/projects/aws-quiz-tracker.png",
     },
+        {
+        title: "TurnoMaster",
+        description:
+            "A shift management web app with role-based access (admin/employee), scheduling, and deployment using Docker. Backend + frontend separated.",
+        tags: ["Fullstack", "Backend", "Web App", "Docker"],
+        technologies: ["SpringBoot", "Java", "Angular", "TypeScript", "MySQL", "Docker"],
+        githubUrl: "https://github.com/albamdls/turno-master", // placeholder
+        liveUrl: "",
+        imageUrl: "/projects/turno-master.png",
+    },
     {
         title: "AI Knowledge Assistant",
         description:
@@ -39,17 +49,6 @@ export const projects: ProjectItem[] = [
         liveUrl: "", // si no tienes demo, déjalo vacío
         imageUrl: "/projects/ai-knowledge-assistant.png",
     },
-    {
-        title: "TurnoMaster",
-        description:
-            "A shift management web app with role-based access (admin/employee), scheduling, and deployment using Docker. Backend + frontend separated.",
-        tags: ["Fullstack", "Backend", "Web App", "Docker"],
-        technologies: ["Django", "Python", "Angular", "TypeScript", "MySQL", "Docker"],
-        githubUrl: "https://github.com/albamdls/turno-master", // placeholder
-        liveUrl: "",
-        imageUrl: "/projects/turnomaster.png",
-    },
-
     // --- Extras para testear el grid + load more (puedes borrar luego) ---
     {
         title: "AWS Notes (MkDocs)",
