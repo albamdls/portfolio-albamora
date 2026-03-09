@@ -72,7 +72,7 @@ function StackPill({ item }: { item: StackItem }) {
                 // Light mode
                 "border-slate-200/70 bg-white/70 text-slate-700 hover:bg-white",
                 // Dark mode
-                "dark:border-white/10 dark:bg-white/[0.06] dark:text-white/80 dark:hover:bg-white/[0.10] dark:hover:text-white",
+                "dark:border-white/10 dark:bg-slate-900 dark:text-white/80 dark:hover:bg-slate-900 dark:hover:text-white",
                 "px-4 py-2",
                 "text-sm font-medium",
                 "shadow-sm",
