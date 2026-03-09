@@ -39,7 +39,7 @@ export default function Contact() {
         e.preventDefault()
 
         if (!formData.name || !formData.email || !formData.message) {
-            alert("Por favor, rellena todos los campos")
+            alert("Please fill in all fields")
             return
         }
 
@@ -48,7 +48,7 @@ export default function Contact() {
         // Simular envío
         await new Promise((resolve) => setTimeout(resolve, 1000))
 
-        console.log("Formulario enviado:", formData)
+        console.log("Form submitted:", formData)
         setSubmitted(true)
         setIsSubmitting(false)
 
@@ -58,7 +58,7 @@ export default function Contact() {
             message: "",
         })
 
-        // Ocultar mensaje de éxito después de 5 segundos
+        // Hide success message after 5 seconds
         setTimeout(() => setSubmitted(false), 5000)
     }
 
@@ -125,7 +125,7 @@ export default function Contact() {
 
     return (
         <Section id="contact" title="" subtitle="">
-            {/* Header centrado (más compacto) */}
+            {/* Centered header (more compact) */}
             <div className="mx-auto max-w-5xl text-center">
                 <p className="text-[11px] font-semibold tracking-[0.22em] text-slate-500 dark:text-slate-400">
                     CONTACT ME
@@ -137,12 +137,12 @@ export default function Contact() {
                 </h2>
             </div>
 
-            {/* Layout (menos margen, menos gap) */}
+            {/* Layout (less margin, less gap) */}
             <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-10">
-                {/* Información de contacto */}
+                {/* Contact information */}
                 <div className="space-y-6">
 
-                    {/* Disponibilidad (más compacta) */}
+                    {/* Availability (more compact) */}
                     <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
                         <div className="flex items-start gap-3">
                             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
@@ -154,10 +154,10 @@ export default function Contact() {
 
                             <div className="min-w-0">
                                 <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                                    Disponible para proyectos
+                                    Available for projects
                                 </p>
                                 <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
-                                    Abierta a nuevas oportunidades y colaboraciones
+                                    Open to new opportunities and collaborations
                                 </p>
                             </div>
                         </div>
@@ -165,14 +165,14 @@ export default function Contact() {
 
                     <div className="space-y-2">
                         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                            Formas de contacto
+                            Contact methods
                         </h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400">
-                            Puedes contactarme por cualquiera de estos canales. Respondo lo antes posible.
+                            You can contact me through any of these channels. I'll respond as soon as possible.
                         </p>
                     </div>
 
-                    {/* Métodos de contacto (cards más finas) */}
+                    {/* Contact methods (thinner cards) */}
                     <div className="space-y-3">
                         {contactMethods.map((method) => {
                             const isExternal = method.href.startsWith("http")
@@ -183,7 +183,7 @@ export default function Contact() {
                                     target={isExternal ? "_blank" : undefined}
                                     rel={isExternal ? "noopener noreferrer" : undefined}
                                     className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
-                                    aria-label={`Abrir ${method.title}`}
+                                    aria-label={`Open ${method.title}`}
                                 >
                                     <div
                                         className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-105 ${colorClasses[method.color]}`}
@@ -219,7 +219,7 @@ export default function Contact() {
                         })}
                     </div>
 
-                    {/* Disponibilidad (más compacta) */}
+                    {/* Availability (more compact) */}
                     {/* <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
                         <div className="flex items-start gap-3">
                             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
@@ -231,39 +231,39 @@ export default function Contact() {
 
                             <div className="min-w-0">
                                 <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-                                    Disponible para proyectos
+                                    Available for projects
                                 </p>
                                 <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
-                                    Abierta a nuevas oportunidades y colaboraciones
+                                    Open to new opportunities and collaborations
                                 </p>
                             </div>
                         </div>
                     </div> */}
                 </div>
 
-                {/* Formulario de contacto (más compacto) */}
+                {/* Contact form (more compact) */}
                 <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 md:p-6">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                        Envíame un mensaje
+                        Send me a message
                     </h3>
                     <p className="mt-1.5 text-sm text-slate-600 dark:text-slate-400">
-                        Rellena el formulario y te responderé lo antes posible
+                        Fill out the form and I'll get back to you as soon as possible
                     </p>
 
                     <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-                        {/* Campo nombre */}
+                        {/* Name field */}
                         <div>
                             <label
                                 htmlFor="name"
                                 className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                             >
-                                Nombre
+                                Name
                             </label>
                             <input
                                 type="text"
                                 id="name"
                                 name="name"
-                                placeholder="Tu nombre completo"
+                                placeholder="Your full name"
                                 value={formData.name}
                                 onChange={handleChange}
                                 className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-400"
@@ -272,7 +272,7 @@ export default function Contact() {
                             />
                         </div>
 
-                        {/* Campo email */}
+                        {/* Email field */}
                         <div>
                             <label
                                 htmlFor="email"
@@ -284,7 +284,7 @@ export default function Contact() {
                                 type="email"
                                 id="email"
                                 name="email"
-                                placeholder="tu@email.com"
+                                placeholder="your@email.com"
                                 value={formData.email}
                                 onChange={handleChange}
                                 className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-400"
@@ -293,19 +293,19 @@ export default function Contact() {
                             />
                         </div>
 
-                        {/* Campo mensaje */}
+                        {/* Message field */}
                         <div>
                             <label
                                 htmlFor="message"
                                 className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                             >
-                                Mensaje
+                                Message
                             </label>
                             <textarea
                                 id="message"
                                 name="message"
                                 rows={4}
-                                placeholder="Cuéntame sobre tu proyecto o consulta..."
+                                placeholder="Tell me about your project or inquiry..."
                                 value={formData.message}
                                 onChange={handleChange}
                                 className="mt-2 w-full resize-none rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-blue-400"
@@ -313,7 +313,7 @@ export default function Contact() {
                             />
                         </div>
 
-                        {/* Botón enviar (menos alto, sin escala tan grande) */}
+                        {/* Submit button (shorter, no big scaling) */}
                         <button
                             type="submit"
                             disabled={isSubmitting}
@@ -342,11 +342,11 @@ export default function Contact() {
                                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                             />
                                         </svg>
-                                        Enviando...
+                                        Sending...
                                     </>
                                 ) : (
                                     <>
-                                        Enviar mensaje
+                                        Send message
                                         <svg
                                             className="h-4 w-4 transition-transform group-hover:translate-x-1"
                                             fill="none"
@@ -366,7 +366,7 @@ export default function Contact() {
                             </span>
                         </button>
 
-                        {/* Mensaje de éxito */}
+                        {/* Success message */}
                         {submitted && (
                             <div className="flex items-start gap-3 rounded-lg border border-green-200 bg-green-50 p-3 dark:border-green-800 dark:bg-green-900/20">
                                 <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50">
@@ -386,7 +386,7 @@ export default function Contact() {
                                     </svg>
                                 </div>
                                 <p className="text-sm font-medium text-green-800 dark:text-green-300">
-                                    ¡Mensaje enviado correctamente! Te responderé pronto.
+                                    Message sent successfully! I'll get back to you soon.
                                 </p>
                             </div>
                         )}

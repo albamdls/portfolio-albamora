@@ -124,16 +124,17 @@ export default function About() {
                 <div className="relative z-10 grid gap-5 lg:col-start-8 lg:col-span-5 lg:row-start-2 lg:grid-cols-[1.05fr_0.95fr]">
                     {/* TECHNOLOGIES */}
                     <article className="overflow-hidden rounded-3xl border border-slate-200/70 bg-white/80 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-slate-900/85">
-                        <div className="flex h-full min-h-[260px] flex-col items-center text-center sm:min-h-[150px] lg:min-h-0">
+                        <div className="flex h-full min-h-[260px] flex-col items-center text-center sm:min-h-[220px] lg:min-h-0">
                             <p className="shrink-0 text-[10px] font-semibold tracking-[0.22em] text-slate-500 dark:text-white/50">
                                 TECHNOLOGIES
                             </p>
 
-                            <div className="flex min-h-[240px] flex-1 items-center justify-center overflow-hidden py-2 sm:min-h-[260px]">                                <div className="flex h-full w-full items-center justify-center overflow-hidden">
-                                <div className="origin-center scale-[1.15] sm:scale-[1.05] lg:scale-[1.1]">
-                                    <IconCloud images={techImages} />
+                            <div className="flex min-h-[230px] flex-1 items-center justify-center overflow-hidden py-2 sm:min-h-[210px] lg:min-h-0">
+                                <div className="flex h-full w-full items-center justify-center overflow-hidden">
+                                    <div className="origin-center mt-2 scale-[1.18] sm:scale-[0.88] lg:scale-[0.9]">
+                                        <IconCloud images={techImages} />
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </article>

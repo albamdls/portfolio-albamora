@@ -24,37 +24,37 @@ const groupLabel: Record<Group, string> = {
 }
 
 /**
- * Icono con glow “real” detrás (no círculo, no badge).
- * - Glow solo en dark
- * - Más glow en hover
+ * Icon with "real" glow behind (no circle, no badge).
+ * - Glow only in dark mode
+ * - More glow on hover
  */
 function TechIcon({ src, name }: { src: string; name: string }) {
     return (
         <span className="relative inline-flex h-4 w-4 shrink-0 items-center justify-center">
-            {/* Glow detrás del icono (dark only) */}
+            {/* Glow behind icon (dark only) */}
             <span
                 aria-hidden="true"
                 className={[
                     "pointer-events-none absolute inset-[-10px] opacity-0 blur-xl",
-                    "transition-opacity duration-300 ease-out",
-                    // encendido base en dark
+                    "transition-opacity duration-300 ease-out will-change-opacity",
+                    // base glow in dark
                     "dark:opacity-90",
-                    // más intenso al hover
+                    // more intense on hover
                     "group-hover:dark:opacity-100",
-                    // “neon mix” (violet + blue)
+                    // neon mix (violet + blue)
                     "bg-[radial-gradient(circle,rgba(168,85,247,0.95)_0%,rgba(59,130,246,0.55)_45%,transparent_70%)]",
                 ].join(" ")}
             />
-            {/* Imagen */}
+            {/* Image */}
             <img
                 src={src}
                 alt={name}
                 loading="lazy"
                 className={[
                     "relative h-4 w-4 object-contain",
-                    "opacity-95 transition-transform duration-300 ease-out",
+                    "opacity-95 transition-transform duration-300 ease-out will-change-transform",
                     "group-hover:scale-110",
-                    // extra punch para iconos oscuros en dark
+                    // extra brightness for dark icons in dark mode
                     "dark:brightness-110 dark:contrast-110",
                 ].join(" ")}
             />
@@ -76,8 +76,8 @@ function StackPill({ item }: { item: StackItem }) {
                 "px-4 py-2",
                 "text-sm font-medium",
                 "shadow-sm backdrop-blur-md",
-                "transition-all duration-200",
-                "hover:-translate-y-0.5",
+                "transition-[background-color,transform,ring_color] duration-200",
+                "hover:-translate-y-0.5 will-change-transform",
                 "focus:outline-none focus:ring-2 focus:ring-violet-500/30",
             ].join(" ")}
             aria-label={item.name}
@@ -140,7 +140,7 @@ export default function Stack() {
                 </h2>
 
                 <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600 dark:text-white/60">
-                    Tecnologías y herramientas que uso en mi día a día.
+                    Technologies and tools I use in my daily work.
                 </p>
             </div>
 

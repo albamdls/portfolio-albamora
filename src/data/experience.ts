@@ -9,29 +9,29 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
     {
-        title: "Estudiante en prácticas | Software Developer",
-        company: "Siemens EDA (Siemens Digital Industries Software)",
+        title: "Software Developer Intern",
+        company: "Siemens Mobility S.L.U.",
         startDate: "Sep 2025",
         endDate: "Present",
         description: [
-            "Desarrollo de software en un entorno profesional dentro del área de Siemens EDA.",
-            "Participación en tareas de desarrollo y mantenimiento de aplicaciones.",
-            "Colaboración con el equipo técnico siguiendo metodologías y buenas prácticas de ingeniería de software.",
-            "Trabajo presencial en un entorno corporativo internacional."
+            "Software development within the Siemens EDA engineering environment.",
+            "Contributing to the development and maintenance of internal applications.",
+            "Collaborating with technical teams following modern software engineering practices and methodologies.",
+            "Working in an international corporate environment."
         ],
-        skills: ["Desarrollo de software", "Trabajo en equipo", "Buenas prácticas", "Inglés"]
+        skills: ["Software Development", "Teamwork", "Software Engineering Practices", "English"]
     },
     {
-        title: "Estudiante en prácticas | Software Developer",
-        company: "Siemens Digital Industries Software",
+        title: "Software Developer Intern",
+        company: "Siemens Mobility S.L.U.",
         startDate: "Mar 2025",
         endDate: "Jun 2025",
         description: [
-            "Apoyo en tareas de desarrollo de software con enfoque en front-end.",
-            "Diseño e implementación de componentes de interfaz de usuario.",
-            "Colaboración en un entorno híbrido con equipos multidisciplinares.",
-            "Introducción al trabajo en proyectos reales dentro de un entorno empresarial."
+            "Supported software development tasks with a focus on front-end technologies.",
+            "Designed and implemented user interface components.",
+            "Collaborated with multidisciplinary teams in a hybrid working environment.",
+            "Gained experience working on real-world software projects within a corporate setting."
         ],
-        skills: ["Front-end", "Desarrollo de software", "UI", "Trabajo en equipo"]
+        skills: ["Front-End Development", "Software Development", "UI Development", "Teamwork"]
     }
 ]
