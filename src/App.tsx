@@ -10,13 +10,13 @@ import Footer from "@/components/layout/Footer"
 
 import Navbar from "@/components/Navbar"
 import DotGrid from "@/components/ui/DotGrid"
-import SmoothCursor from "./components/ui/smooth-cursor"
+// import SmoothCursor from "./components/ui/smooth-cursor"
 import SmokeyCursor from "@/components/lightswind/smokey-cursor"
 
 export default function App() {
   return (
     <div className="relative isolate min-h-screen overflow-x-hidden bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
-      <SmoothCursor />
+      {/* <SmoothCursor /> */}
 
       {/* GLOBAL BACKGROUND */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">

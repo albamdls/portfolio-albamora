@@ -13,15 +13,25 @@ const tabs: Array<{ key: TabKey; label: string }> = [
     { key: "certifications", label: "Certifications" },
 ]
 
+const STORAGE_KEY = "career-active-tab"
+
 export default function Career() {
     const [active, setActive] = useState<TabKey>("experience")
 
     useEffect(() => {
-        const hash = (window.location.hash || "").replace("#", "")
-        if (hash === "education" || hash === "experience" || hash === "certifications") {
-            setActive(hash as TabKey)
+        const saved = window.sessionStorage.getItem(STORAGE_KEY)
+        if (
+            saved === "experience" ||
+            saved === "education" ||
+            saved === "certifications"
+        ) {
+            setActive(saved)
         }
     }, [])
+
+    useEffect(() => {
+        window.sessionStorage.setItem(STORAGE_KEY, active)
+    }, [active])
 
     const header = useMemo(() => {
         if (active === "experience") {
@@ -57,7 +67,6 @@ export default function Career() {
                     <AuroraText className="inline-block">{header.titleB}</AuroraText>
                 </h2>
 
-                {/* Tabs */}
                 <div className="mt-6 flex items-center justify-center">
                     <div className="inline-flex rounded-full border border-slate-200 bg-white/70 p-1 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/60">
                         {tabs.map((t) => {
@@ -66,10 +75,7 @@ export default function Career() {
                                 <button
                                     key={t.key}
                                     type="button"
-                                    onClick={() => {
-                                        setActive(t.key)
-                                        window.history.replaceState(null, "", `#${t.key}`)
-                                    }}
+                                    onClick={() => setActive(t.key)}
                                     className={[
                                         "relative rounded-full px-4 py-2 text-sm font-medium transition",
                                         isActive

@@ -15,8 +15,8 @@ export const projects: ProjectItem[] = [
             "A responsive portfolio website built with React + Tailwind, featuring animated sections, interactive UI components, and a clean tech aesthetic.",
         tags: ["Web Development", "React", "Tailwind CSS", "UI/UX"],
         technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "React Router"],
-        githubUrl: "https://github.com/albamdls/portfolio", // cámbialo si no es
-        liveUrl: "https://albamdls.github.io/portfolio/", // cámbialo si no es
+        githubUrl: "https://github.com/albamdls/portfolio-albamora", // cámbialo si no es
+        liveUrl: "https://albamdls.github.io/portfolio-albamora/", // cámbialo si no es
         imageUrl: "/projects/portfolio.png",
     },
     {

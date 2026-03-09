@@ -52,9 +52,9 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-* {
+/* * {
   cursor: none !important;
-}
+} */
 
 html {
   scroll-behavior: smooth;

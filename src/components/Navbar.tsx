@@ -18,7 +18,7 @@ function scrollToId(id: string) {
 }
 
 export default function Navbar() {
-    const [active, setActive] = useState<string>("about")
+    const [active, setActive] = useState<string>("")
     const [mobileOpen, setMobileOpen] = useState(false)
 
     useEffect(() => {
@@ -59,14 +59,14 @@ export default function Navbar() {
             <div className="mx-auto max-w-6xl px-3 sm:px-6">
                 <div className="p-2">
                     {/* MOBILE */}
-                    <div className="rounded-2xl border border-slate-200/70 bg-white/70 p-2 shadow-lg shadow-slate-900/10 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/50 dark:shadow-black/30 md:hidden">
+                    <div className="rounded-2xl border border-white/30 bg-white/45 p-2 shadow-lg shadow-slate-900/10 backdrop-blur-2xl dark:border-white/10 dark:bg-slate-900/35 dark:shadow-black/30 md:hidden">
                         <div className="flex items-center justify-between">
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <button
                                         type="button"
                                         aria-label="Cambiar tema"
-                                        className="grid h-11 w-11 place-items-center rounded-full border border-slate-200/70 bg-white/80 shadow-md shadow-slate-900/10 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-slate-950/70 dark:shadow-black/30 dark:hover:bg-slate-950"
+                                        className="grid h-11 w-11 place-items-center rounded-full border border-white/35 bg-white/40 shadow-md shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white/55 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-white/10 dark:shadow-black/30 dark:hover:bg-white/15"
                                     >
                                         <AnimatedThemeToggler />
                                     </button>
@@ -81,7 +81,7 @@ export default function Navbar() {
                                 aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
                                 aria-expanded={mobileOpen}
                                 onClick={() => setMobileOpen((prev) => !prev)}
-                                className="grid h-11 w-11 place-items-center rounded-full border border-slate-200/70 bg-white/80 text-slate-900 shadow-md shadow-slate-900/10 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-slate-950/70 dark:text-white dark:shadow-black/30 dark:hover:bg-slate-950"
+                                className="grid h-11 w-11 place-items-center rounded-full border border-white/35 bg-white/40 text-slate-900 shadow-md shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white/55 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-white/10 dark:text-white dark:shadow-black/30 dark:hover:bg-white/15"
                             >
                                 {mobileOpen ? (
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -110,7 +110,7 @@ export default function Navbar() {
                                         type="button"
                                         aria-label="Contactar"
                                         onClick={() => scrollToId("contact")}
-                                        className="grid h-11 w-11 place-items-center rounded-full border border-slate-200/70 bg-white/80 text-slate-900 shadow-md shadow-slate-900/10 transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-slate-950/70 dark:text-white dark:shadow-black/30 dark:hover:bg-white/10"
+                                        className="grid h-11 w-11 place-items-center rounded-full border border-white/35 bg-white/40 text-slate-900 shadow-md shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white/55 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-white/10 dark:text-white dark:shadow-black/30 dark:hover:bg-white/15"
                                     >
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                                             <path
@@ -130,7 +130,7 @@ export default function Navbar() {
                         </div>
 
                         {mobileOpen && (
-                            <div className="mt-3 border-t border-slate-200/70 pt-3 dark:border-white/10">
+                            <div className="mt-3 border-t border-white/20 pt-3 dark:border-white/10">
                                 <nav className="flex flex-col gap-2">
                                     {NAV.map((item) => {
                                         const isActive = active === item.id
@@ -145,11 +145,11 @@ export default function Navbar() {
                                                     setMobileOpen(false)
                                                 }}
                                                 className={[
-                                                    "w-full rounded-xl px-4 py-3 text-left text-sm font-semibold transition",
+                                                    "w-full rounded-xl border px-4 py-3 text-left text-sm font-semibold backdrop-blur-xl transition",
                                                     "focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent",
                                                     isActive
-                                                        ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-                                                        : "text-slate-700 hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10",
+                                                        ? "border-white/30 bg-white/45 text-slate-900 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-white"
+                                                        : "border-transparent text-slate-700 hover:border-white/20 hover:bg-white/25 dark:text-slate-200 dark:hover:bg-white/8",
                                                 ].join(" ")}
                                             >
                                                 {item.label}
@@ -168,7 +168,7 @@ export default function Navbar() {
                                 <button
                                     type="button"
                                     aria-label="Cambiar tema"
-                                    className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-slate-200/70 bg-white/70 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-slate-950/50 dark:shadow-black/30 dark:hover:bg-slate-950"
+                                    className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-white/30 bg-white/45 shadow-lg shadow-slate-900/10 backdrop-blur-2xl transition hover:bg-white/55 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-slate-900/35 dark:shadow-black/30 dark:hover:bg-white/10"
                                 >
                                     <AnimatedThemeToggler />
                                 </button>
@@ -178,7 +178,7 @@ export default function Navbar() {
                             </TooltipContent>
                         </Tooltip>
 
-                        <nav className="flex flex-1 items-center justify-center gap-1 rounded-full border border-slate-200/70 bg-white/70 p-1 shadow-lg shadow-slate-900/10 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/50 dark:shadow-black/30">
+                        <nav className="flex flex-1 items-center justify-center gap-1 rounded-full border border-white/30 bg-white/45 p-1.5 shadow-lg shadow-slate-900/10 backdrop-blur-2xl dark:border-white/10 dark:bg-slate-900/35 dark:shadow-black/30">
                             {NAV.map((item) => {
                                 const isActive = active === item.id
 
@@ -191,11 +191,11 @@ export default function Navbar() {
                                             scrollToId(item.id)
                                         }}
                                         className={[
-                                            "rounded-full px-4 py-2 text-sm font-semibold transition",
+                                            "rounded-full border px-4 py-2 text-sm font-semibold backdrop-blur-xl transition",
                                             "focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent",
                                             isActive
-                                                ? "bg-slate-900 text-white shadow-sm dark:bg-white dark:text-slate-900"
-                                                : "text-slate-700 hover:bg-slate-900/5 dark:text-slate-200 dark:hover:bg-white/10",
+                                                ? "border-white/35 bg-white/55 text-slate-900 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-white"
+                                                : "border-transparent text-slate-700 hover:border-white/20 hover:bg-white/25 dark:text-slate-200 dark:hover:bg-white/8",
                                         ].join(" ")}
                                     >
                                         {item.label}
@@ -210,7 +210,7 @@ export default function Navbar() {
                                     type="button"
                                     aria-label="Contactar"
                                     onClick={() => scrollToId("contact")}
-                                    className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-slate-200/70 bg-white/70 text-slate-900 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-slate-950/50 dark:text-white dark:shadow-black/30 dark:hover:bg-white/10"
+                                    className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-white/30 bg-white/45 text-slate-900 shadow-lg shadow-slate-900/10 backdrop-blur-2xl transition hover:bg-white/55 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-slate-900/35 dark:text-white dark:shadow-black/30 dark:hover:bg-white/10"
                                 >
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                                         <path

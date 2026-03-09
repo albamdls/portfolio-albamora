@@ -244,12 +244,12 @@ export const stack: StackItem[] = [
         category: "Cloud & DevOps",
         group: "Cloud & DevOps",
     },
-    {
-        name: "n8n",
-        iconUrl: "https://avatars.githubusercontent.com/u/45487711?s=200&v=4",
-        category: "Cloud & DevOps",
-        group: "Cloud & DevOps",
-    },
+    // {
+    //     name: "n8n",
+    //     iconUrl: "https://avatars.githubusercontent.com/u/45487711?s=200&v=4",
+    //     category: "Cloud & DevOps",
+    //     group: "Cloud & DevOps",
+    // },
 
     // =========================
     // 🧰 Software & Tools (selección)

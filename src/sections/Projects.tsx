@@ -34,11 +34,6 @@ export default function Projects() {
                     </span>
                     <AuroraText className="inline-block">New Projects</AuroraText>
                 </h2>
-
-                <p className="mt-3 text-sm text-slate-600 dark:text-white/60">
-                    Showing <span className="font-semibold">{visibleProjects.length}</span>{" "}
-                    of <span className="font-semibold">{projects.length}</span>
-                </p>
             </div>
 
             <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-3">
