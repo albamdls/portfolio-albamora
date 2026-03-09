@@ -75,7 +75,7 @@ function StackPill({ item }: { item: StackItem }) {
                 "dark:border-white/10 dark:bg-white/[0.06] dark:text-white/80 dark:hover:bg-white/[0.10] dark:hover:text-white",
                 "px-4 py-2",
                 "text-sm font-medium",
-                "shadow-sm backdrop-blur-md",
+                "shadow-sm",
                 "transition-[background-color,transform,ring_color] duration-200",
                 "hover:-translate-y-0.5 will-change-transform",
                 "focus:outline-none focus:ring-2 focus:ring-violet-500/30",
