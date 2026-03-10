@@ -51,7 +51,7 @@ export default function Footer() {
                         </a>
 
                         <a
-                            href="https://linkedin.com/in/TU-LINKEDIN"
+                            href="https://www.linkedin.com/in/alba-mora-de-la-sen/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="hover:text-emerald-500 transition"
@@ -60,7 +60,7 @@ export default function Footer() {
                         </a>
 
                         <a
-                            href="mailto:tuemail@email.com"
+                            href="mailto:albamora.dev@gmail.com"
                             className="hover:text-emerald-500 transition"
                         >
                             <Mail size={18} />
