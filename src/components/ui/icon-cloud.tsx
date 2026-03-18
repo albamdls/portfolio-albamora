@@ -54,7 +54,6 @@ export function IconCloud({ icons, images }: IconCloudProps) {
       if (offCtx) {
         if (images) {
           const img = new Image()
-          img.crossOrigin = "anonymous"
           img.src = items[index] as string
           img.onload = () => {
             offCtx.clearRect(0, 0, offscreen.width, offscreen.height)
