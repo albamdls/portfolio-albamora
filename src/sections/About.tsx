@@ -6,7 +6,7 @@ import { HyperText } from "@/components/ui/hyper-text"
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 
 const interests = [
-    "Cybersecurity",
+    // "Cybersecurity",
     "Full-Stack",
     "Artificial Intelligence",
     "Cloud & DevOps",
