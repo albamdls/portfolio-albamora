@@ -63,13 +63,10 @@ export default function Navbar() {
                         <div className="flex items-center justify-between">
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <button
-                                        type="button"
+                                    <AnimatedThemeToggler
                                         aria-label="Cambiar tema"
                                         className="grid h-11 w-11 place-items-center rounded-full border border-white/35 bg-white/40 shadow-md shadow-slate-900/10 backdrop-blur-xl transition hover:bg-white/55 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-white/10 dark:shadow-black/30 dark:hover:bg-white/15"
-                                    >
-                                        <AnimatedThemeToggler />
-                                    </button>
+                                    />
                                 </TooltipTrigger>
                                 <TooltipContent side="bottom" sideOffset={10} className="rounded-xl px-4 py-2 text-sm">
                                     <p>Tema</p>
@@ -165,13 +162,10 @@ export default function Navbar() {
                     <div className="hidden md:flex md:items-center md:justify-between md:gap-3">
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <button
-                                    type="button"
+                                <AnimatedThemeToggler
                                     aria-label="Cambiar tema"
                                     className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-white/30 bg-white/45 shadow-lg shadow-slate-900/10 backdrop-blur-2xl transition hover:bg-white/55 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:border-white/10 dark:bg-slate-900/35 dark:shadow-black/30 dark:hover:bg-white/10"
-                                >
-                                    <AnimatedThemeToggler />
-                                </button>
+                                />
                             </TooltipTrigger>
                             <TooltipContent side="bottom" sideOffset={10} className="rounded-xl px-4 py-2 text-sm">
                                 <p>Tema</p>

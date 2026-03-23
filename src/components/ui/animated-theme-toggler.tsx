@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 import { flushSync } from "react-dom"
 
@@ -8,82 +8,115 @@ interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"butt
   duration?: number
 }
 
-export const AnimatedThemeToggler = ({
-  className,
-  duration = 400,
-  ...props
-}: AnimatedThemeTogglerProps) => {
-  const [isDark, setIsDark] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (updateCallback: () => void) => { ready: Promise<void> }
+}
 
-  useEffect(() => {
-    const updateTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"))
-    }
+export const AnimatedThemeToggler = forwardRef<HTMLButtonElement, AnimatedThemeTogglerProps>(
+  ({ className, duration = 400, onClick, ...props }, forwardedRef) => {
+    const [isDark, setIsDark] = useState(false)
+    const buttonRef = useRef<HTMLButtonElement>(null)
 
-    updateTheme()
+    useEffect(() => {
+      const updateTheme = () => {
+        setIsDark(document.documentElement.classList.contains("dark"))
+      }
 
-    const observer = new MutationObserver(updateTheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    })
+      updateTheme()
 
-    return () => observer.disconnect()
-  }, [])
+      const observer = new MutationObserver(updateTheme)
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      })
 
-  const toggleTheme = useCallback(async () => {
-    if (!buttonRef.current) return
+      return () => observer.disconnect()
+    }, [])
 
-    await document.startViewTransition(() => {
-      flushSync(() => {
+    const setButtonRef = useCallback(
+      (node: HTMLButtonElement | null) => {
+        buttonRef.current = node
+
+        if (typeof forwardedRef === "function") {
+          forwardedRef(node)
+          return
+        }
+
+        if (forwardedRef) {
+          forwardedRef.current = node
+        }
+      },
+      [forwardedRef]
+    )
+
+    const toggleTheme = useCallback(async (event: React.MouseEvent<HTMLButtonElement>) => {
+      onClick?.(event)
+
+      if (event.defaultPrevented || !buttonRef.current) return
+
+      const applyThemeChange = () => {
         const newTheme = !isDark
         setIsDark(newTheme)
-        document.documentElement.classList.toggle("dark")
+        document.documentElement.classList.toggle("dark", newTheme)
         localStorage.setItem("theme", newTheme ? "dark" : "light")
-      })
-    }).ready
-
-    const { top, left, width, height } =
-      buttonRef.current.getBoundingClientRect()
-    const x = left + width / 2
-    const y = top + height / 2
-    const maxRadius = Math.hypot(
-      Math.max(left, window.innerWidth - left),
-      Math.max(top, window.innerHeight - top)
-    )
-
-    document.documentElement.animate(
-      {
-        clipPath: [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${maxRadius}px at ${x}px ${y}px)`,
-        ],
-      },
-      {
-        duration,
-        easing: "ease-in-out",
-        pseudoElement: "::view-transition-new(root)",
       }
-    )
-  }, [isDark, duration])
 
-  return (
-    <button
-      ref={buttonRef}
-      onClick={toggleTheme}
-      type="button"
-      className={cn(
-        // ✅ base: que no pinte nada raro y se centre
-        "appearance-none bg-transparent border-0 justify-center text-inherit outline-none focus:outline-none",
-        // ✅ tamaño del icono (lucide)
-        "[&_svg]:h-5 [&_svg]:w-5",
-        className
-      )}
-      {...props}
-    >
-      {isDark ? <Sun /> : <Moon />}
-      <span className="sr-only">Toggle theme</span>
-    </button>
-  )
-}
+      const transitionApi = (document as ViewTransitionDocument).startViewTransition
+
+      if (!transitionApi) {
+        applyThemeChange()
+        return
+      }
+
+      const transition = transitionApi(() => {
+        flushSync(applyThemeChange)
+      })
+
+      await transition.ready
+
+      if (!buttonRef.current) return
+
+      const { top, left, width, height } =
+        buttonRef.current.getBoundingClientRect()
+      const x = left + width / 2
+      const y = top + height / 2
+      const maxRadius = Math.hypot(
+        Math.max(left, window.innerWidth - left),
+        Math.max(top, window.innerHeight - top)
+      )
+
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${maxRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration,
+          easing: "ease-in-out",
+          pseudoElement: "::view-transition-new(root)",
+        }
+      )
+    }, [duration, isDark, onClick])
+
+    return (
+      <button
+        ref={setButtonRef}
+        onClick={toggleTheme}
+        type="button"
+        className={cn(
+          "appearance-none bg-transparent border-0 justify-center text-inherit outline-none focus:outline-none",
+          "[&_svg]:h-5 [&_svg]:w-5",
+          className
+        )}
+        {...props}
+      >
+        {isDark ? <Sun /> : <Moon />}
+        <span className="sr-only">Toggle theme</span>
+      </button>
+    )
+  }
+)
+
+AnimatedThemeToggler.displayName = "AnimatedThemeToggler"
