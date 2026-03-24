@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import Section from "@/components/layout/Section"
 import { AuroraText } from "@/components/ui/aurora-text"
 
@@ -17,6 +17,13 @@ const colorClasses: Record<ContactMethod["color"], string> = {
 }
 
 export default function Contact() {
+    const apiUrl = useMemo(() => {
+        const raw = import.meta.env.VITE_API_URL?.trim()
+        if (raw) return raw.replace(/\/+$/, "")
+        if (import.meta.env.DEV) return "http://localhost:8000"
+        return "https://portfolio-albamora-api.onrender.com"
+    }, [])
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -24,6 +31,7 @@ export default function Contact() {
     })
     const [submitted, setSubmitted] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submitError, setSubmitError] = useState<string | null>(null)
 
     function handleChange(
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -37,6 +45,7 @@ export default function Contact() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
+        setSubmitError(null)
 
         if (!formData.name || !formData.email || !formData.message) {
             alert("Please fill in all fields")
@@ -44,22 +53,37 @@ export default function Contact() {
         }
 
         setIsSubmitting(true)
+        try {
+            const response = await fetch(`${apiUrl}/api/contact`, {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
 
-        // Simular envío
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+            const data = await response.json().catch(() => null)
+            if (!response.ok) {
+                throw new Error(data?.message || "Failed to send the message.")
+            }
 
-        console.log("Form submitted:", formData)
-        setSubmitted(true)
-        setIsSubmitting(false)
-
-        setFormData({
-            name: "",
-            email: "",
-            message: "",
-        })
-
-        // Hide success message after 5 seconds
-        setTimeout(() => setSubmitted(false), 5000)
+            setSubmitted(true)
+            setFormData({
+                name: "",
+                email: "",
+                message: "",
+            })
+            setTimeout(() => setSubmitted(false), 5000)
+        } catch (error) {
+            setSubmitError(
+                error instanceof Error
+                    ? error.message
+                    : "There was a problem sending your message. Please try again."
+            )
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     const contactMethods: ContactMethod[] = [
@@ -387,6 +411,30 @@ export default function Contact() {
                                 </div>
                                 <p className="text-sm font-medium text-green-800 dark:text-green-300">
                                     Message sent successfully! I'll get back to you soon.
+                                </p>
+                            </div>
+                        )}
+
+                        {submitError && (
+                            <div className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-900/20">
+                                <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50">
+                                    <svg
+                                        className="h-4 w-4 text-red-600 dark:text-red-400"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M6 18L18 6M6 6l12 12"
+                                        />
+                                    </svg>
+                                </div>
+                                <p className="text-sm font-medium text-red-800 dark:text-red-300">
+                                    {submitError}
                                 </p>
                             </div>
                         )}
