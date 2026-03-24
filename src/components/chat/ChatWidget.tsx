@@ -37,6 +37,18 @@ function uid() {
     return Math.random().toString(36).slice(2) + Date.now().toString(36)
 }
 
+function getChatSessionId() {
+    if (typeof window === "undefined") return "portfolio-chat-session"
+    const storageKey = "portfolio-chat-session-id"
+    const existing = window.localStorage.getItem(storageKey)
+    if (existing) return existing
+    const created = typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : uid()
+    window.localStorage.setItem(storageKey, created)
+    return created
+}
+
 /** Reactively tracks Tailwind's dark-mode class on <html> */
 function useDarkMode() {
     const [dark, setDark] = useState(() =>
@@ -82,6 +94,7 @@ export default function HeroChatCard({
     ])
 
     const viewportRef = useRef<HTMLDivElement | null>(null)
+    const sessionIdRef = useRef(getChatSessionId())
     const canSend = useMemo(() => input.trim().length > 0 && !isTyping, [input, isTyping])
 
     useEffect(() => {
@@ -95,7 +108,7 @@ export default function HeroChatCard({
             method: "POST",
             mode: "cors",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message, session_id: "local-session" }),
+            body: JSON.stringify({ message, session_id: sessionIdRef.current }),
         })
         if (!res.ok) throw new Error(`Backend error ${res.status}: ${await res.text()}`)
         return await res.json()

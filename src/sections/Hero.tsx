@@ -25,7 +25,7 @@ export default function Hero() {
                     <h1 className="mt-3 text-xl font-semibold tracking-tight text-slate-900 dark:text-white sm:mt-4 sm:text-2xl lg:text-3xl">
 
                         {/* ── MOBILE: dos líneas ──────────────────────────── */}
-                        <span className="block sm:hidden">
+                        <span className="block sm:hidden sm:text-xs">
                             Hi, I&apos;m
                         </span>
                         <span className="block sm:hidden">
