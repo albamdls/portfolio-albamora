@@ -21,13 +21,13 @@ export const education: EducationItem[] = [
         skills: ["English", "Data Analysis", "Big Data", "Process Optimization"]
     },
     {
-        title: "Higher Technician in Web and Multimedia Management",
+        title: "Higher Technician in Web Application Development",
         institution: "IES Virgen de la Paz",
         startDate: "Sep 2023",
         endDate: "Jun 2025",
         description: [
-            "Specialized training in web development and digital content management.",
-            "Development and maintenance of websites, multimedia applications, and digital projects.",
+            "Specialized training in web application development.",
+            "Development and maintenance of websites, web applications, and digital projects.",
             "Use of standard web technologies and development best practices."
         ],
         skills: ["HTML", "CSS", "JavaScript", "XML", "English"]

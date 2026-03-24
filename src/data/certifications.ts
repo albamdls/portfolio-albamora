@@ -29,21 +29,6 @@ export const certifications: Certification[] = [
             "Event-driven architectures",
         ],
     },
-    // {
-    //     title: "Microsoft Azure Fundamentals",
-    //     code: "AZ-900",
-    //     issuer: "Microsoft",
-    //     status: "planned",
-    //     badgeSrc: "./public/badges/azure-az900.png",
-    //     badgeAlt: "Azure Fundamentals badge",
-    //     skills: [
-    //         "Azure core services",
-    //         "Cloud concepts",
-    //         "Security & compliance",
-    //         "Cost management",
-    //         "Governance basics",
-    //     ],
-    // },
     {
         title: "AWS Certified Cloud Practitioner",
         code: "CLF-C02",
