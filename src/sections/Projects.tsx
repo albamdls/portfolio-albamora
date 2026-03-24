@@ -10,6 +10,7 @@ function pad2(n: number) {
 
 function guessTypeFromTags(tags?: string[]) {
     const t = (tags ?? []).join(" ").toLowerCase()
+    if (t.includes("ai") || t.includes("rag") || t.includes("document intelligence")) return "AI APP"
     if (t.includes("mobile") || t.includes("react native")) return "MOBILE APP"
     if (t.includes("api") || t.includes("backend")) return "BACKEND"
     return "DESKTOP APP"
@@ -39,12 +40,12 @@ export default function Projects() {
             <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-3">
                 {visibleProjects.map((project, index) => {
                     const number = pad2(index + 1)
-                    const type = guessTypeFromTags(project.tags)
+                    const type = project.label ?? guessTypeFromTags(project.tags)
 
                     const url =
                         project.liveUrl?.trim() ||
                         project.githubUrl ||
-                        "https://example.com"
+                        GITHUB_PROFILE_URL
 
                     const imageSrc = project.imageUrl
                         ? `${import.meta.env.BASE_URL}${project.imageUrl.replace(/^\//, "")}`
@@ -61,18 +62,22 @@ export default function Projects() {
                                 </div>
                             </div>
 
-                            <h3 className="mt-3 min-h-[56px] text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-                                {project.title}
-                            </h3>
+                            <div className="mt-3 min-h-[60px]">
+                                <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                                    {project.title}
+                                </h3>
+                            </div>
 
-                            <p className="mt-1 min-h-[84px] line-clamp-3 text-sm leading-6 text-slate-600 dark:text-white/65">
-                                {project.description}
-                            </p>
+                            <div className="flex h-[96px] items-center justify-center">
+                                <p className="line-clamp-4 text-center text-sm leading-6 text-slate-600 dark:text-white/65">
+                                    {project.description}
+                                </p>
+                            </div>
 
                             {project.technologies?.length ? (
-                                <div className="mt-2 min-h-[56px]">
+                                <div className="mt-5 min-h-[88px]">
                                     <div className="flex flex-wrap justify-center gap-2">
-                                        {project.technologies.slice(0, 4).map((tech) => (
+                                        {project.technologies.map((tech) => (
                                             <span
                                                 key={tech}
                                                 className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-[11px] font-medium text-blue-700 dark:border-blue-500/20 dark:bg-blue-500/10 dark:text-blue-200"
@@ -80,19 +85,13 @@ export default function Projects() {
                                                 {tech}
                                             </span>
                                         ))}
-
-                                        {project.technologies.length > 4 && (
-                                            <span className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-[11px] font-medium text-blue-700 dark:border-blue-500/20 dark:bg-blue-500/10 dark:text-blue-200">
-                                                +{project.technologies.length - 4}
-                                            </span>
-                                        )}
                                     </div>
                                 </div>
                             ) : (
-                                <div className="mt-4 min-h-[72px]" />
+                                <div className="mt-5 min-h-[88px]" />
                             )}
 
-                            <div className="mt-0">
+                            <div className="mt-3">
                                 <div className="relative h-[220px] overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-gradient-to-br from-blue-50 via-indigo-50/60 to-fuchsia-50 p-3 dark:border-white/10 dark:bg-gradient-to-br dark:from-slate-900 dark:via-slate-900 dark:to-slate-800">
                                     <div className="pointer-events-none absolute inset-0 z-0 bg-white/55 dark:bg-slate-950/45" />
 

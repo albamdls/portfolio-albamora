@@ -1,5 +1,6 @@
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
 import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
 import { flushSync } from "react-dom"
 
 import { cn } from "@/lib/utils"
@@ -14,23 +15,13 @@ type ViewTransitionDocument = Document & {
 
 export const AnimatedThemeToggler = forwardRef<HTMLButtonElement, AnimatedThemeTogglerProps>(
   ({ className, duration = 400, onClick, ...props }, forwardedRef) => {
-    const [isDark, setIsDark] = useState(false)
+    const { resolvedTheme, setTheme } = useTheme()
+    const [mounted, setMounted] = useState(false)
     const buttonRef = useRef<HTMLButtonElement>(null)
+    const isDark = mounted && resolvedTheme === "dark"
 
     useEffect(() => {
-      const updateTheme = () => {
-        setIsDark(document.documentElement.classList.contains("dark"))
-      }
-
-      updateTheme()
-
-      const observer = new MutationObserver(updateTheme)
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["class"],
-      })
-
-      return () => observer.disconnect()
+      setMounted(true)
     }, [])
 
     const setButtonRef = useCallback(
@@ -52,16 +43,14 @@ export const AnimatedThemeToggler = forwardRef<HTMLButtonElement, AnimatedThemeT
     const toggleTheme = useCallback(async (event: React.MouseEvent<HTMLButtonElement>) => {
       onClick?.(event)
 
-      if (event.defaultPrevented || !buttonRef.current) return
+      if (!buttonRef.current) return
 
       const applyThemeChange = () => {
-        const newTheme = !isDark
-        setIsDark(newTheme)
-        document.documentElement.classList.toggle("dark", newTheme)
-        localStorage.setItem("theme", newTheme ? "dark" : "light")
+        setTheme(isDark ? "light" : "dark")
       }
 
-      const transitionApi = (document as ViewTransitionDocument).startViewTransition
+      const transitionDocument = document as ViewTransitionDocument
+      const transitionApi = transitionDocument.startViewTransition?.bind(document)
 
       if (!transitionApi) {
         applyThemeChange()

@@ -3,6 +3,7 @@ export type ProjectItem = {
     description: string
     tags: string[]
     technologies: string[]
+    label?: string
     githubUrl?: string
     liveUrl?: string
     imageUrl?: string
@@ -10,84 +11,36 @@ export type ProjectItem = {
 
 export const projects: ProjectItem[] = [
     {
+        title: "DocuMind AI",
+        description:
+            "An AI document assistant that lets users upload PDFs or text files, search semantically, and chat with their documents through a RAG pipeline designed to extract relevant context and return grounded answers quickly.",
+        tags: ["AI", "RAG", "Document Intelligence", "API"],
+        technologies: ["Python", "FastAPI", "LangChain", "OpenAI API", "ChromaDB", "React", "TypeScript", "Docker"],
+        label: "DESKTOP APP & AI",
+        githubUrl: "https://github.com/albamdls/documind-ai",
+        liveUrl: "",
+        imageUrl: "/projects/documind-ai.png",
+    },
+    {
         title: "Personal Portfolio Website",
         description:
-            "A responsive portfolio website built with React + Tailwind, featuring animated sections, interactive UI components, and a clean tech aesthetic.",
-        tags: ["Web Development", "React", "Tailwind CSS", "UI/UX"],
-        technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "React Router"],
-        githubUrl: "https://github.com/albamdls/portfolio-albamora", // cámbialo si no es
-        liveUrl: "https://albamdls.github.io/portfolio-albamora/", // cámbialo si no es
+            "A responsive portfolio website built with React and Tailwind that now includes an AI chat widget and a FastAPI backend, allowing visitors to ask questions about Alba and get contextual answers from structured portfolio data.",
+        tags: ["Web Development", "React", "AI", "UI/UX"],
+        technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "FastAPI", "AI Chat API"],
+        label: "DESKTOP APP & AI",
+        githubUrl: "https://github.com/albamdls/portfolio-albamora",
+        liveUrl: "https://albamdls.github.io/portfolio-albamora/",
         imageUrl: "/projects/portfolio.png",
     },
     {
         title: "AWS Quiz Tracker",
         description:
-            "A web application to practice AWS certification questions with exam/study modes, category filters, progress stats and local persistence.",
+            "A web application to practice AWS certification questions with exam and study modes, category filters, progress tracking, and local persistence, making it easier to prepare consistently and review weak areas over time.",
         tags: ["Web Development", "AWS", "Quiz", "React"],
         technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "LocalStorage"],
+        label: "DESKTOP APP",
         githubUrl: "https://github.com/albamdls/aws-quiz-tracker",
         liveUrl: "https://albamdls.github.io/aws-quiz-tracker/",
         imageUrl: "/projects/aws-quiz-tracker.png",
-    },
-        {
-        title: "TurnoMaster",
-        description:
-            "A shift management web app with role-based access (admin/employee), scheduling, and deployment using Docker. Backend + frontend separated.",
-        tags: ["Fullstack", "Backend", "Web App", "Docker"],
-        technologies: ["SpringBoot", "Java", "Angular", "TypeScript", "MySQL", "Docker"],
-        githubUrl: "https://github.com/albamdls/turno-master", // placeholder
-        liveUrl: "",
-        imageUrl: "/projects/turno-master.png",
-    },
-    {
-        title: "AI Knowledge Assistant",
-        description:
-            "An AI assistant that answers questions from your own documents using RAG (embeddings + vector search), with sources and chat history.",
-        tags: ["AI", "RAG", "Backend", "API"],
-        technologies: ["Python", "FastAPI", "LangChain", "ChromaDB", "OpenAI", "Docker"],
-        githubUrl: "https://github.com/albamdls/ai-knowledge-assistant", // placeholder
-        liveUrl: "", // si no tienes demo, déjalo vacío
-        imageUrl: "/projects/ai-knowledge-assistant.png",
-    },
-    // --- Extras para testear el grid + load more (puedes borrar luego) ---
-    {
-        title: "AWS Notes (MkDocs)",
-        description:
-            "A documentation site for AWS Cloud Practitioner modules with structured notes, diagrams and deployment via GitHub Pages.",
-        tags: ["Documentation", "AWS", "Static Site"],
-        technologies: ["MkDocs", "Material for MkDocs", "GitHub Pages"],
-        githubUrl: "https://github.com/albamdls/aws-notes", // placeholder
-        liveUrl: "",
-        imageUrl: "/projects/aws-notes.png",
-    },
-    {
-        title: "WaterTrack Microservices Demo",
-        description:
-            "A microservices demo focused on clean architecture and containerized deployment, showing service communication and observability basics.",
-        tags: ["DevOps", "Docker", "Backend", "API"],
-        technologies: ["Docker Compose", "Node.js", "REST", "PostgreSQL"],
-        githubUrl: "https://github.com/albamdls/watertrack", // placeholder
-        liveUrl: "",
-        imageUrl: "/projects/watertrack.png",
-    },
-    {
-        title: "Pomodoro Pokémon",
-        description:
-            "A playful productivity app concept using Pokémon-themed rewards, designed as a cloud-native microservices lab on AWS.",
-        tags: ["Cloud", "AWS", "Microservices"],
-        technologies: ["AWS ECS", "ECR", "API Gateway", "Lambda", "DynamoDB"],
-        githubUrl: "https://github.com/albamdls/pomodoro-pokemon", // placeholder
-        liveUrl: "",
-        imageUrl: "/projects/pomodoro-pokemon.png",
-    },
-    {
-        title: "Smart Search for Websites",
-        description:
-            "An experimental search bar that understands a website by reading its structure and content, improving discoverability and UX.",
-        tags: ["AI", "Search", "Web Development"],
-        technologies: ["Python", "BeautifulSoup", "Embeddings", "Vector Search"],
-        githubUrl: "https://github.com/albamdls/smart-web-search", // placeholder
-        liveUrl: "",
-        imageUrl: "/projects/smart-search.png",
     },
 ]
