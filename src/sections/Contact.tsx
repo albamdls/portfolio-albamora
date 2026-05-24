@@ -65,7 +65,7 @@ export default function Contact() {
 
             const data = await response.json().catch(() => null)
             if (!response.ok) {
-                throw new Error(data?.message || "Failed to send the message.")
+                throw new Error(data?.detail || data?.message || "Failed to send the message.")
             }
 
             setSubmitted(true)
