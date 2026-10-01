@@ -1,0 +1,33 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import ThemeToggle from "@/components/ThemeToggle"
+
+interface Props {
+  title: string
+  description: string
+}
+
+const { title, description } = Astro.props
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
+    <header class="mx-auto flex max-w-3xl items-center justify-between px-6 py-6">
+      <nav class="flex items-center gap-5 text-sm font-semibold">
+        <a href="/" class="text-slate-500! transition hover:text-slate-900! dark:text-slate-400! dark:hover:text-white!">
+          ← albamora.dev
+        </a>
+        <a href="/blog" class="text-slate-900! dark:text-white!">Blog</a>
+      </nav>
+      <ThemeToggle client:load />
+    </header>
+
+    <main class="mx-auto max-w-3xl px-6 pb-24">
+      <slot />
+    </main>
+
+    <footer class="mx-auto max-w-3xl border-t border-slate-200 px-6 py-8 text-sm text-slate-500 dark:border-white/10 dark:text-slate-400">
+      © {new Date().getFullYear()} Alba Mora de la Sen
+    </footer>
+  </div>
+</BaseLayout>

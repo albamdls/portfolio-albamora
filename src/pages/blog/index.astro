@@ -1,0 +1,22 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro"
+import PostCard from "@/components/blog/PostCard.astro"
+import { getPosts } from "@/lib/blog"
+
+const posts = await getPosts()
+---
+
+<BlogLayout
+  title="Blog · Alba Mora de la Sen"
+  description="Artículos, guías y curiosidades sobre desarrollo, datos e IA."
+>
+  <h1 class="mt-6 text-4xl! font-bold tracking-tight">Blog</h1>
+  <p class="mt-3 text-lg text-slate-600 dark:text-slate-300">
+    Artículos, guías y curiosidades que se me van ocurriendo.
+  </p>
+
+  <div class="mt-10 grid gap-5">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+  {posts.length === 0 && <p class="mt-10 text-slate-500">Todavía no hay artículos.</p>}
+</BlogLayout>

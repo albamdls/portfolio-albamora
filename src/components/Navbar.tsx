@@ -153,6 +153,12 @@ export default function Navbar() {
                                             </button>
                                         )
                                     })}
+                                    <a
+                                        href="/blog"
+                                        className="w-full rounded-xl border border-transparent px-4 py-3 text-left text-sm font-semibold text-slate-700 backdrop-blur-xl transition hover:border-white/20 hover:bg-white/25 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:text-slate-200 dark:hover:bg-white/8"
+                                    >
+                                        Blog
+                                    </a>
                                 </nav>
                             </div>
                         )}
@@ -196,6 +202,12 @@ export default function Navbar() {
                                     </button>
                                 )
                             })}
+                            <a
+                                href="/blog"
+                                className="rounded-full border border-transparent px-4 py-2 text-sm font-semibold text-slate-700 backdrop-blur-xl transition hover:border-white/20 hover:bg-white/25 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-transparent dark:text-slate-200 dark:hover:bg-white/8"
+                            >
+                                Blog
+                            </a>
                         </nav>
 
                         <Tooltip>
