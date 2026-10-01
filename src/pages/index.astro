@@ -1,0 +1,11 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import Portfolio from "@/components/Portfolio"
+---
+
+<BaseLayout
+  title="Alba Mora de la Sen"
+  description="Portfolio de Alba Mora de la Sen: proyectos, stack y experiencia."
+>
+  <Portfolio client:only="react" />
+</BaseLayout>

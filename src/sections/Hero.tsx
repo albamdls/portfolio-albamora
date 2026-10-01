@@ -16,7 +16,7 @@ export default function Hero() {
 
                     {/* Imagen: más pequeña en mobile, igual que el original en sm+ */}
                     <img
-                        src="./alba-hero.gif"
+                        src="/alba-hero.gif"
                         alt="Foto de perfil"
                         className="h-20 w-20 rounded-[1.25rem] object-contain sm:h-36 sm:w-36 sm:rounded-[2.25rem] lg:h-40 lg:w-40"
                     />

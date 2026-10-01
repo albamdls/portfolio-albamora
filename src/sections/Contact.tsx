@@ -18,7 +18,7 @@ const colorClasses: Record<ContactMethod["color"], string> = {
 
 export default function Contact() {
     const apiUrl = useMemo(() => {
-        const raw = import.meta.env.VITE_API_URL?.trim()
+        const raw = import.meta.env.PUBLIC_API_URL?.trim()
         if (raw) return raw.replace(/\/+$/, "")
         if (import.meta.env.DEV) return "http://localhost:8000"
         return "https://portfolio-albamora-api.onrender.com"
